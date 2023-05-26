@@ -1,0 +1,4 @@
+gift/gift.appli/src/views/cache/*
+*.xml
+gift/gift.appli/src/vendor/composer/installed.php
+.idea/MyGiftBox.iml
