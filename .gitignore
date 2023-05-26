@@ -4,3 +4,4 @@ gift/gift.appli/src/vendor/composer/installed.php
 .idea/MyGiftBox.iml
 gift/gift.appli/.idea/*
 gift/.idea/*
+.idea/*
