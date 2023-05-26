@@ -1,0 +1,22 @@
+{%  extends "squelette.twig" %}
+{%  block body %}
+<html>
+<head>
+    <title>Prestations</title>
+
+</head>
+<body>
+<ul>
+    {% for prestation in prestas %}
+
+        <li><a href="{{ url_for('prestationId', {'id' : prestation['id']}) }}">{{prestation['libelle']}}</a></li>
+
+    {% endfor %}
+
+</ul>
+
+</body>
+
+</html>
+
+{%  endblock %}

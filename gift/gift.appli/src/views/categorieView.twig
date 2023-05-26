@@ -1,0 +1,25 @@
+{% extends "squelette.twig" %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categorie {{ cat['id'] }}</title>
+</head>
+<body>
+<h1>Categorie {{ cat['id'] }}</h1>
+<h2>{{cat['libelle']}}</h2>
+<h2>{{cat['description']}}</h2>
+
+<h2>Prestations de cette catégorie : </h2>
+
+{% for presta in prestaLies %}
+<ul>
+    <li><a href="{{ url_for('prestationId', {id : presta['id']}) }}">{{presta['libelle']}}</a></li>
+</ul>
+{% endfor %}
+
+</body>
+</html>
+
+{% endblock %}
+

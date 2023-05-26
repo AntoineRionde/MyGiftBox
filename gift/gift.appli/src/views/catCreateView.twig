@@ -1,0 +1,12 @@
+{% extends "squelette.twig" %}
+{%  block body %}
+<h2>Créer une catégorie : </h2>
+<form method="post" action="{{ url_for('categorieCreatePost') }}">
+<label for="cat_libelle_input">libelle</label>
+<input type="text" id="cat_libelle_input" name="libelle">
+<label for="cat_desc_input">description</label>
+<input type="text" id="cat_desc_input" name="description">
+<input type="hidden" name="csrf" value="{{ csrf }}">
+<button type="submit">OK</button>
+</form>
+{% endblock %}

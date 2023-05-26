@@ -1,0 +1,15 @@
+
+<nav>
+    <ul>
+{#        {% for option in url.menu %}#}
+{#            <li><a href="{{ option.url }}">{{ option.libelle }}</a></li>#}
+{#        {% endfor %}#}
+
+        <li> <a href="{{ url_for('categories') }}"> Categories </a> </li>
+        <li> <a href="{{ url_for('prestations') }}"> Prestations </a> </li>
+
+    </ul>
+
+    <br />
+    <br />
+</nav>
