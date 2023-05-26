@@ -1,0 +1,8 @@
+<form method="post" action="{{ url_for('createCategoriePost') }}">
+    <label for="cat_name_input">libelle</label>
+    <input type="text" id="cat_name_input" name="libelle">
+    <label for="cat_desc_input">description</label>
+    <input type="text" id="cat_desc_input" name="description">
+    <input type="hidden" name="token" value="{{ token }}">
+    <button type="submit">OK</button>
+</form>

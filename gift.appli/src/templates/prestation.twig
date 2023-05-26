@@ -1,0 +1,24 @@
+{% extends "squelette.twig" %}
+
+{% block content %}
+<h1>{{ presta['libelle'] }}</h1>
+<ul>
+    <li><a href="{{ url_for('categorie', { 'id': presta['cat_id'] }) }}">Retourner à la categorie lié</a></li>
+    <li><a href="{{ url_for('prestations') }}">Retourner aux prestations</a></li>
+    <li><a href="{{ url_for('updatePrestationGet', { 'id': presta['id'] }) }}">Modifier la prestation</a></li>
+</ul>
+<div>
+    <h2>Description</h2>
+    <p>{{ presta['description'] }}</p>
+    <h2>Url</h2>
+    <p>{{ presta['url'] }}</p>
+    <h2>Unite</h2>
+    <p>{{ presta['unite'] }}</p>
+    <h2>Tarif</h2>
+    <p>{{ presta['tarif'] }} €</p>
+    <h2>Image</h2>
+    <img src="/shared/img/{{ presta['img'] }}" alt="{{ presta['img'] }}">
+    <h2>Categorie</h2>
+    <p>{{ presta['cat_id'] }}</p>
+</div>
+{% endblock %}
