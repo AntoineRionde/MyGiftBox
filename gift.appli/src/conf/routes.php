@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use gift\app\actions\BoxCreateFormAction;
+use gift\app\actions\BoxCreateProcessAction;
 use gift\app\actions\createCategorieAction;
 use gift\app\actions\getCategorieByIdAction;
 use gift\app\actions\getCategoriesAction;
