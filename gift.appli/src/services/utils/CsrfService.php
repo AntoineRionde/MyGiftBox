@@ -6,7 +6,7 @@ class CsrfService
 {
     public static function generate() : string
     {
-        $token = bin2hex(random_bytes(32));
+        $token = base64_encode(random_bytes(32));
         $_SESSION['csrf_token'] = $token;
         return $token;
     }

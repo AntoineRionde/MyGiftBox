@@ -1,0 +1,16 @@
+{% extends "squelette.twig" %}
+
+{% block content %}
+<form>
+    <label for="libelle"> libelle</label>
+    <input type="text" id="box_libelle_input" name="libelle">
+    <label for="description">description</label>
+    <input type="text" id="box_desc_input" name="description">
+    <label for="message_kdo">message kdo</label>
+    <input type="text" id="box_msg_input" name="message_kdo">
+    <input for="url">url</input>
+    <input type="text" id="box_url_input" name="url">
+    <input type="hidden" name="token" value="{{ token }}">
+    <button type="submit">OK</button>
+</form>
+{% endblock %}

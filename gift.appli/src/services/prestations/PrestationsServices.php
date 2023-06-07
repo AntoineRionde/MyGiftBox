@@ -129,6 +129,12 @@ class PrestationsServices
 
     public function createCategorie(array $data): int
     {
+        if ($data['libelle'] != filter_var($data['libelle'], FILTER_SANITIZE_SPECIAL_CHARS)) {
+            throw new PrestationsServicesException("Invalid libelle");
+        }
+        if ($data['description'] != filter_var($data['description'], FILTER_SANITIZE_SPECIAL_CHARS)) {
+            throw new PrestationsServicesException("Invalid description");
+        }
         $categorie = new Categorie();
         $categorie->libelle = $data['libelle']?? null;
         $categorie->description = $data['description']?? null;

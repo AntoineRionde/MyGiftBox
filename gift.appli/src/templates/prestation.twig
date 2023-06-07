@@ -6,6 +6,7 @@
     <li><a href="{{ url_for('categorie', { 'id': presta['cat_id'] }) }}">Retourner à la categorie lié</a></li>
     <li><a href="{{ url_for('prestations') }}">Retourner aux prestations</a></li>
     <li><a href="{{ url_for('updatePrestationGet', { 'id': presta['id'] }) }}">Modifier la prestation</a></li>
+    <li><a href="{{ url_for('boxCreateForm', {'id' : presta['id']}) }}">Ajouter la prestation au coffret courant</a> </li>
 </ul>
 <div>
     <h2>Description</h2>

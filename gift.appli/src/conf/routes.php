@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\createCategorieAction;
 use gift\app\actions\getCategorieByIdAction;
 use gift\app\actions\getCategoriesAction;
@@ -29,4 +30,6 @@ return function (App $app) {
 
     $app->post('/prestation/{id}/update', updatePrestationByIdAction::class)->setName('updatePrestationPost');
 
+    $app->get('/box/create[/]', BoxCreateFormAction::class)->setName('boxCreateForm');
+    $app->post('/box/create[/]', BoxCreateProcessAction::class)->setName('boxCreatePost');
 };
