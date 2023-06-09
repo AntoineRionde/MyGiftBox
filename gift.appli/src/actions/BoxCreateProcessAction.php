@@ -23,6 +23,6 @@ class BoxCreateProcessAction extends AbstractAction
         $box = $boxService->CreateBoxEmpty($data);
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         //$url = $routeParser->urlFor('box', ['id' => $box['id']]);
-        return $response->withStatus(302); // >withHeader('Location', $url);
+        return $response->withHeader('location', $routeParser->urlFor('home'))->withStatus(302); // >withHeader('Location', $url);
     }
 }

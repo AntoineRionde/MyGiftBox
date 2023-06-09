@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace gift\test\services\prestations;
 
+require_once __DIR__ . '/../../../src/vendor/autoload.php';
+
 use Faker\Factory;
 use gift\app\models\Categorie;
 use gift\app\models\Prestation;
