@@ -1,11 +1,13 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-<form>
+<form method="post" action="{{ url_for('boxCreatePost') }}">
     <label for="libelle"> libelle</label>
     <input type="text" id="box_libelle_input" name="libelle">
     <label for="description">description</label>
     <input type="text" id="box_desc_input" name="description">
+    <label for="cadeau">Kdo ? : </label>
+    <input type="checkbox" id="box_kdo_input" name="cadeau" >
     <label for="message_kdo">message kdo</label>
     <input type="text" id="box_msg_input" name="message_kdo">
     <label for="url">url</label>
