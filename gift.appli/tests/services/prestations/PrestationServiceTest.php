@@ -112,6 +112,4 @@ final class PrestationServiceTest extends TestCase
         $prestationService->getPrestationById('AAAAAAA');
     }
 
-
-
 }
