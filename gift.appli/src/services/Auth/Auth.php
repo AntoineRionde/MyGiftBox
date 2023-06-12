@@ -77,9 +77,8 @@ class Auth
 
     //Activation
     private static function generateActivitionToken(string $email): string {
-        $token = '';
-
-        return $token;
+        $token = bin2hex(random_bytes(32));
+        return 'https://'.$_SERVER['HTTP_HOST'].'activate.php'."?token=$token";
     }
 
     public static function activate(string $token): bool {
