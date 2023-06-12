@@ -20,7 +20,7 @@ class BoxCreateProcessAction extends AbstractAction
         $data['message_kdo'] = filter_var($data['message_kdo'], FILTER_SANITIZE_SPECIAL_CHARS);
         $data['url'] = filter_var($data['url'], FILTER_SANITIZE_SPECIAL_CHARS);
         $boxService = new BoxService();
-        $box = $boxService->CreateBoxEmpty($data);
+        $box = $boxService->CreateEmptyBox($data);
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         //$url = $routeParser->urlFor('box', ['id' => $box['id']]);
         return $response->withHeader('location', $routeParser->urlFor('home'))->withStatus(302); // >withHeader('Location', $url);
