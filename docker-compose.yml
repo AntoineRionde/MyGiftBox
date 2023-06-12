@@ -15,6 +15,7 @@ services:
       - ./gift.appli/public:/var/www/html
       - ./shared/img:/var/www/html/
       - ./gift.appli/src:/var/www/src
+      - ./gift.appli/tests:/var/www/tests
     networks:
       - gift.net
 #    depends_on:
