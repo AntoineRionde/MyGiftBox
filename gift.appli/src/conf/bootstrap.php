@@ -1,10 +1,12 @@
 <?php
 
+use gift\app\services\utils\Eloquent;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig as Twig;
 use Slim\Views\TwigMiddleware;
 
 
+Eloquent::init('../src/conf/config.ini');
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(true, false, false);

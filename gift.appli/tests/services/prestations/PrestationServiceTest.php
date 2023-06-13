@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../src/vendor/autoload.php';
 use Faker\Factory;
 use gift\app\models\Categorie;
 use gift\app\models\Prestation;
-use gift\app\services\prestations\PrestationsServiceNotFoundException;
+use gift\app\services\prestations\PrestationsServicesException;
 use gift\app\services\prestations\PrestationsServices as PrestationsService;
 use \PHPUnit\Framework\TestCase;
 use Illuminate\Database\Capsule\Manager as DB ;
@@ -76,7 +76,9 @@ final class PrestationServiceTest extends TestCase
         $prestationService = new PrestationsService();
         $categories = $prestationService->getCategories();
 
+
         $this->assertSameSize(self::$categories, $categories);
+
         $this->assertEquals(self::$categories[0]['id'], $categories[0]['id']);
         $this->assertEquals(self::$categories[0]['libelle'], $categories[0]['libelle']);
         $this->assertEquals(self::$categories[0]['description'], $categories[0]['description']);
@@ -94,7 +96,7 @@ final class PrestationServiceTest extends TestCase
         $this->assertEquals(self::$categories[0]['libelle'], $categorie['libelle']);
         $this->assertEquals(self::$categories[0]['description'], $categorie['description']);
 
-        $this->expectException(PrestationsServiceNotFoundException::class);
+        $this->expectException(PrestationsServicesException::class);
         $prestationService->getCategorieById(-1);
     }
     public function testgetPrestationById(): void
@@ -108,7 +110,7 @@ final class PrestationServiceTest extends TestCase
         $this->assertEquals(self::$prestations[0]['tarif'], $prestation['tarif']);
         $this->assertEquals(self::$prestations[0]['unite'], $prestation['unite']);
 
-        $this->expectException(PrestationsServiceNotFoundException::class);
+        $this->expectException(PrestationsServicesException::class);
         $prestationService->getPrestationById('AAAAAAA');
     }
 

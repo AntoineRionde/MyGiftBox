@@ -9,12 +9,6 @@ use Throwable;
 
 class PrestationsServices
 {
-
-    public function __construct()
-    {
-        Eloquent::init('../src/conf/config.ini');
-    }
-
     public function getCategories(): array
     {
         $categories = Categorie::all();
