@@ -62,6 +62,14 @@ class Auth
         return true;
     }
 
+    /**
+     * @param string $email
+     * @param string $pass
+     * @return void
+     * permet de s'inscire sur le site
+     * penser à checker l'unicité de mail dans la table User de la BD
+     * pernser à checker la robustesse du mdp avec la méthode CheckPassStrength
+     */
     public static function register(string $email, string $pass): void {
 
     }
