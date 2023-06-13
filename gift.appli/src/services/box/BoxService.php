@@ -9,11 +9,6 @@ use Ramsey\Uuid\Uuid;
 
 class BoxService
 {
-    public function __construct()
-    {
-        Eloquent::init('../src/conf/config.ini');
-    }
-
     public function deletePresta(string $box_id, string $presta_id)
     {
         $box = Box::find($box_id);
@@ -22,7 +17,7 @@ class BoxService
         return $box;
     }
 
-    public function CreateEmptyBox(array $data)
+    public function createEmptyBox(array $data)
     {
         if (!isset($data['libelle']))
         {
@@ -33,7 +28,7 @@ class BoxService
         $description = filter_var($data['description'] ?? 'pas de description', FILTER_SANITIZE_SPECIAL_CHARS);
         $statut = Box::CREATED;
         $montant = 0;
-        $message_kdo = filter_var($data['message_kdo'] ?? 'ceci est un cadeau', FILTER_SANITIZE_SPECIAL_CHARS);
+        $message_kdo = filter_var($data['cadeau'] ? $data['message_kdo'] : '', FILTER_SANITIZE_SPECIAL_CHARS);
         $token = CsrfService::generate();
         $box = new Box();
         $box->id = Uuid::uuid4()->toString();
@@ -47,6 +42,12 @@ class BoxService
         $box->created_at = date_create('now')->format('Y-m-d H:i:s');
         $box->updated_at = date_create('now')->format('Y-m-d H:i:s');
         $box->save();
+        return $box->toArray();
+    }
+
+    public function getBoxById(string $id)
+    {
+        $box = Box::with('prestations')->findOrFail($id);
         return $box->toArray();
     }
 
