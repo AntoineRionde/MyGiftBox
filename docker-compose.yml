@@ -18,8 +18,8 @@ services:
       - ./gift.appli/tests:/var/www/tests
     networks:
       - gift.net
-#    depends_on:
-#      - sql
+    depends_on:
+      - sql
 
   sql:
     image: mariadb:latest
