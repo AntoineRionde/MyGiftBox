@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\services\prestations;
+namespace gift\api\services\prestations;
 use Exception;
 
 class PrestationsServicesException extends Exception

@@ -30,6 +30,6 @@ class GetCatgoriesAction extends AbstractAction
             'categories' => $categories_data
         ];
         $response->getBody()->write(json_encode($data));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200); //remplace le rendu de la vue
     }
 }
