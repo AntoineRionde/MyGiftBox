@@ -4,7 +4,7 @@
 class PrestationsServices
 {
 
-    public function getCategories()
+    public function getCategories(): string
     {
     }
 }

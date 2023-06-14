@@ -13,25 +13,15 @@ class Auth
      * @throws Exception
      */
     public static function authenticate(string $email, string $pass):void {
-        // Recherche de l'utilisateur par e-mail
-        $user = User::where('email', $email)->first();
 
-        if (!$user) {
-            throw new Exception("Utilisateur introuvable.");
+        $hash = "select password from user where email = ? ";
+        if (!password_verify($pass, $hash)) {
+            throw new Exception("Auth error : invalid credentials");
         }
-
-        if (!password_verify($pass, $user->password)) {
-            throw new Exception("Mot de passe incorrect.");
-        }
-
-        // L'authentification est réussie, vous pouvez effectuer d'autres opérations ici
-        // ...
-
-        // Exemple : Stocker l'ID de l'utilisateur dans une variable de session
-        $_SESSION['user_id'] = $user->id;
     }
 
     public static function loadProfile(string $email): void {
+        $u = "select * from user where email = ? ";
 
     }
 

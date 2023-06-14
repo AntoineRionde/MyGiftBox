@@ -3,7 +3,6 @@
 namespace gift\app\models;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
-use netvod\exception\InvalidPropertyNameException;
 
 class User extends Model
 {
@@ -30,6 +29,12 @@ class User extends Model
         'role',                 //int(4)
         'level'                 //int(4)
     ];
+
+    public function __construct($id, $role, $level)
+    {
+        //TODO à compléter pour Auth/loadProfile()
+    }
+
 
     public function boxes()
     {
