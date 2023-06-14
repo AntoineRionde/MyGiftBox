@@ -3,11 +3,32 @@
 namespace gift\app\services\Auth;
 
 //TODO à compléter
+use Exception;
+use gift\app\models\User;
+
 class Auth
 {
     //Authentification
+    /**
+     * @throws Exception
+     */
     public static function authenticate(string $email, string $pass):void {
+        // Recherche de l'utilisateur par e-mail
+        $user = User::where('email', $email)->first();
 
+        if (!$user) {
+            throw new Exception("Utilisateur introuvable.");
+        }
+
+        if (!password_verify($pass, $user->password)) {
+            throw new Exception("Mot de passe incorrect.");
+        }
+
+        // L'authentification est réussie, vous pouvez effectuer d'autres opérations ici
+        // ...
+
+        // Exemple : Stocker l'ID de l'utilisateur dans une variable de session
+        $_SESSION['user_id'] = $user->id;
     }
 
     public static function loadProfile(string $email): void {
@@ -29,7 +50,7 @@ class Auth
         $lowercase = preg_match('/[a-z]/', $pass); // Vérifie la présence d'au moins une minuscule
         $number = preg_match('/[0-9]/', $pass); // Vérifie la présence d'au moins un chiffre
         $specialChars = preg_match('/[^a-zA-Z0-9]/', $pass); // Vérifie la présence d'au moins un caractère spécial
-        $length = strlen($pass) >= 8; // Vérifie que le mot de passe a au moins 8 caractères de longueur
+        $length = strlen($pass) >= $min; // Vérifie que le mot de passe a au moins 8 caractères de longueur
 
         if (!$uppercase) {
             $errors[] = "Le mot de passe doit contenir au moins une majuscule.";
@@ -64,14 +85,37 @@ class Auth
 
     /**
      * @param string $email
+     * @param string $name
+     * @param string $firstname
      * @param string $pass
      * @return void
      * permet de s'inscire sur le site
      * penser à checker l'unicité de mail dans la table User de la BD
      * pernser à checker la robustesse du mdp avec la méthode CheckPassStrength
+     * @throws Exception
      */
-    public static function register(string $email, string $pass): void {
+    public static function register(string $email, string $name, string $firstname, string $pass): void {
+        // Vérifier l'unicité de l'e-mail dans la table User
+        $existingUser = User::where('email',$email)->first();
+        if ($existingUser) {
+            throw new Exception("Cet e-mail est déjà utilisé.");
+        }
 
+        if (!self::checkPassStrength($pass, 8)) {
+            throw new Exception("password not enought strong : password must have at list <br>1 number, <br>1 Upper and Lower Case,<br>1 special caracters(!:;,...) <br>8 characters or more");
+        }
+
+        //Créer un nouvelle utilisateur
+        $user = new User();
+        $user->name = $name;
+        $user->firstname = $firstname;
+        $user->email = $email;
+        $user->setPassword($pass); // Définit le mot de passe en utilisant la méthode setPassword définie dans la classe User
+        $user->is_active = true;
+        $user->activation_token = null;
+        $user->role = 1; // Définit le rôle par défaut
+        $user->level = 1; // Définit le niveau par défaut
+        $user->save(); // Enregistre l'utilisateur dans la base de données
     }
 
     //contrôle d'accès
@@ -85,7 +129,7 @@ class Auth
 
     //Activation
     private static function generateActivitionToken(string $email): string {
-        $token = bin2hex(random_bytes(32));
+        $token = bin2hex(random_bytes(64));
         return 'https://'.$_SERVER['HTTP_HOST'].'activate.php'."?token=$token";
     }
 
