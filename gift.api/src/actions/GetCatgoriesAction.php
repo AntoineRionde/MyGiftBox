@@ -2,14 +2,13 @@
 
 namespace gift\api\actions;
 
-use gift\app\actions\AbstractAction;
+use gift\api\actions\AbstractAction;
 use PrestationsServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
-use Slim\Views\Twig;
 
 class GetCatgoriesAction extends AbstractAction
 {

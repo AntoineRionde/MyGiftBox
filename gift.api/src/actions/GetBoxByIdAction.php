@@ -2,8 +2,8 @@
 
 namespace gift\api\actions;
 
-use gift\app\actions\AbstractAction;
-use gift\app\services\box\BoxService;
+use gift\api\actions\AbstractAction;
+use gift\app\services\box\BoxService; //api
 use PHPUnit\Exception;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Psr7\Request;
