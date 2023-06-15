@@ -10,7 +10,7 @@ services:
       - http_proxy=http://www-cache.iutnc.univ-lorraine.fr:3128
       - https_proxy=http://www-cache.iutnc.univ-lorraine.fr:3128
     ports:
-      - "40000:80"
+      - "81:80"
     volumes:
       - ./gift.appli/public:/var/www/html
       - ./shared/img:/var/www/html/
@@ -29,7 +29,7 @@ services:
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASSWORD}
     ports:
-      - "60000:3306"
+      - "3307:3306"
     networks:
       gift.net:
         aliases:
@@ -38,6 +38,6 @@ services:
   adminer:
     image: adminer
     ports:
-      - "50000:8080"
+      - "8081:8080"
     networks:
       - gift.net
