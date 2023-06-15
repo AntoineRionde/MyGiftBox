@@ -13,13 +13,12 @@ services:
       - "81:80"
     volumes:
       - ./gift.appli/public:/var/www/html
-      - ./shared/img:/var/www/html/
       - ./gift.appli/src:/var/www/src
       - ./gift.appli/tests:/var/www/tests
     networks:
       - gift.net
-#    depends_on:
-#      - sql
+    depends_on:
+      - sql
 
   sql:
     image: mariadb:latest

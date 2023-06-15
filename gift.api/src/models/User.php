@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\models;
+namespace gift\api\models;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 

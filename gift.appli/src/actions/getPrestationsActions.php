@@ -14,7 +14,7 @@ class getPrestationsActions
         $prestationsServices = new PrestationsServices();
         $prestations = $prestationsServices->getPrestations();
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'prestations.twig', ['prestations' => $prestations]);;
+        return $view->render($response, 'prestations.twig', ['prestations' => $prestations]);
     }
 
 }
