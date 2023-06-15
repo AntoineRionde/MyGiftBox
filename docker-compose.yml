@@ -13,7 +13,6 @@ services:
       - "40000:80"
     volumes:
       - ./gift.appli/public:/var/www/html
-      - ./shared/img:/var/www/html/
       - ./gift.appli/src:/var/www/src
       - ./gift.appli/tests:/var/www/tests
     networks:
