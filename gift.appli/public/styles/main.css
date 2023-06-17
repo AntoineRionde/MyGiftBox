@@ -88,6 +88,7 @@ hr {
     justify-content: center;
 }
 
+
 /*------------------- HEADER -------------------*/
 header {
     width: 100%;
@@ -140,10 +141,17 @@ nav {
 #header_nav_box {
     padding: 0.5em;
     border-radius: 10px;
-    background: #FF7061;
+
     color: #312821 !important;
 }
 
+.red {
+    background-color: #FF7061;
+}
+
+.green {
+    background-color: #A3D9B1;
+}
 /*------------------- HOME -------------------*/
 
 #home_container {
@@ -194,6 +202,79 @@ nav {
 #home_button_cart {
     width: 1.5em;
     height: 1.5em;
+}
+
+/*------------------- FORM -------------------*/
+
+#form {
+    padding: 5em 5em;
+    width: 30%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+}
+
+.form_infos {
+    margin-bottom: 1em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2em;
+    color: #5A4A3F;
+}
+
+.form_input {
+    margin-bottom: 1em;
+    padding: .5em 1em;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: .9em;
+
+    border: 1px solid #5A4A3F;
+    border-radius: 10px;
+}
+
+.form_input::placeholder {
+    color: #5A4A3F;
+}
+
+.form_input:focus {
+    color: #5A4A3F;
+}
+
+.form_button {
+    margin-top: 1em;
+    padding: .5em 1.5em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 15px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1em;
+    color: #5A4A3F;
+}
+
+.form_button:hover {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background: #FF7061;
+    color: #FFF;
 }
 
 /*------------------- CATEGORIES -------------------*/

@@ -17,7 +17,7 @@ class BoxService
         return $box;
     }
 
-    public function createEmptyBox(array $data)
+    public function createEmptyBox(array $data) : array
     {
         if (!isset($data['libelle']))
         {

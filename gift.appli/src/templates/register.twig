@@ -1,12 +1,28 @@
-<form action="{{ url_for('registerAction') }}" method="POST">
-    <label for="username">Nom d'utilisateur (@email):</label>
-    <input type="text" name="username" id="username">
+{% extends "squelette.twig" %}
 
-    <label for="password">Mot de passe :</label>
-    <input type="password" name="password" id="password">
+{% block content %}
+    <div id="container" class="center">
+        <form action="{{ url_for('registerAction') }}" method="POST" id="form">
+            <div class="form_infos">
+                <label for="username">Nom d'utilisateur (@email):</label>
+                <input type="text" name="username" id="username" class="form_input">
+            </div>
 
-    <label for="confirm_password">Confirmer le mot de passe :</label>
-    <input type="password" name="confirm_password" id="confirm_password">
+            <div class="form_infos">
+                <label for="password">Mot de passe :</label>
+                <input type="password" name="password" id="password" class="form_input">
+            </div>
 
-    <input type="submit" value="S'inscrire">
-</form>
+            <div class="form_infos">
+                <label for="confirm_password">Confirmer le mot de passe :</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="form_input">
+            </div>
+            <div class="form_infos">
+                <a href="{{ url_for('login') }}">
+                    <button type="button" class="form_button red text-darken"> Déjà inscrit ?</button>
+                </a>
+                <button type="submit" class="form_button green text-darken"> S'inscrire</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

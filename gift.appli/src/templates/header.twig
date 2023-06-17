@@ -3,11 +3,20 @@
         <a href="/"><img src="{{ resources['img'] }}/logo.svg" alt="My Gift Box" id="header-logo"></a>
     </div>
         <nav>
-            <a href="/box" id="header_nav_box"><h2 class="header_nav-item text-darken">Composer son coffret</h2></a>
-            <a href="/"><h2 class="header_nav-item">Accueil</h2></a>
-            <a href="/categories"><h2 class="header_nav-item">Categories</h2></a>
-            <a href="/prestations"><h2 class="header_nav-item">Presations</h2></a>
-            <a href="/register"><h2 class="header_nav-item">S'inscrire</h2></a>
-            <a href="/login"><h2 class="header_nav-item">Se connecter</h2></a>
+            {% if user_id %}
+                <a href="{{ url_for('boxDisplay') }}" id="header_nav_box" class="green"><h2 class="header_nav-item text-darken">Afficher mes coffrets</h2></a>
+                <a href="{{ url_for('logout') }}"><h2 class="header_nav-item">Se déconnecter</h2></a>
+            {% else %}
+                <a href="{{ url_for('boxCreateForm') }}" id="header_nav_box" class="red"><h2 class="header_nav-item text-darken">Composer mon coffret</h2></a>
+            {% endif %}
+
+            <a href="{{ url_for('home') }}"><h2 class="header_nav-item">Accueil</h2></a>
+            <a href="{{ url_for('categories') }}"><h2 class="header_nav-item">Categories</h2></a>
+            <a href="{{ url_for('prestations') }}"><h2 class="header_nav-item">Presations</h2></a>
+
+            {% if not user_id %}
+                <a href="{{ url_for('register') }}"><h2 class="header_nav-item">S'inscrire</h2></a>
+                <a href="{{ url_for('login') }}"><h2 class="header_nav-item">Se connecter</h2></a>
+            {% endif %}
         </nav>
 </header>

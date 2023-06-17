@@ -6,8 +6,9 @@ use gift\app\actions\AddPrestaToBoxAction;
 use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\BoxCreateProcessAction;
 use gift\app\actions\CreateCategorieAction;
-use gift\app\actions\getApiCategoriesAction;
-use gift\app\actions\getApiPrestationsActions;
+use gift\api\actions\getApiCategoriesAction;
+use gift\api\actions\getApiPrestationsActions;
+use gift\app\actions\GetBoxByIdAction;
 use gift\app\actions\GetCategorieByIdAction;
 use gift\app\actions\GetCategoriesAction;
 use gift\app\actions\GetHomeAction;
@@ -42,7 +43,9 @@ return function (App $app) {
     $app->get('/box/create[/]', BoxCreateFormAction::class)->setName('boxCreateForm');
 
     $app->post('/box/create[/]', BoxCreateProcessAction::class)->setName('boxCreatePost');
-    
+
+    $app->get('/box/{user_id}[/]', GetBoxByIdAction::class)->setName('box');
+
     $app->get('/box/add/{presta_id}[/]', AddPrestaToBoxAction::class)->setName('boxAddPresta');
 
     $app->get('/register[/]', RegisterAction::class)->setName("register");
