@@ -32,6 +32,7 @@ class AuthService
     /**
      * @param string $email
      * @param string $pass
+     * @param string $confirmPass
      * @return void
      * permet de s'inscire sur le site
      * @throws Exception
