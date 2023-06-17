@@ -9,7 +9,7 @@ use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
-class getPrestationByIdAction extends AbstractAction
+class GetPrestationByIdAction extends AbstractAction
 {
 
     public function __invoke(Request $request, Response $response, array $args): Response

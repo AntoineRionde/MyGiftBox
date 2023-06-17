@@ -5,7 +5,7 @@ namespace gift\app\actions;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;
-class registerAction extends AbstractAction
+class RegisterAction extends AbstractAction
 {
 
     public function __invoke(Request $request, Response $response, array $args): Response

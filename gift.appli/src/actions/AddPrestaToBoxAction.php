@@ -10,7 +10,7 @@ use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
 
-class addPrestaToBoxAction extends AbstractAction
+class AddPrestaToBoxAction extends AbstractAction
 {
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): Response

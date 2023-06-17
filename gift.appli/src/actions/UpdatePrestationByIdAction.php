@@ -7,7 +7,7 @@ use gift\app\services\prestations\PrestationsServicesException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class updatePrestationByIdAction extends AbstractAction
+class UpdatePrestationByIdAction extends AbstractAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {

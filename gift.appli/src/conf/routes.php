@@ -1,48 +1,49 @@
 <?php
 declare(strict_types=1);
 
-use gift\app\actions\addPrestaToBoxAction;
+
+use gift\app\actions\AddPrestaToBoxAction;
 use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\BoxCreateProcessAction;
-use gift\app\actions\createCategorieAction;
-use gift\app\actions\getCategorieByIdAction;
-use gift\app\actions\getCategoriesAction;
+use gift\app\actions\CreateCategorieAction;
 use gift\app\actions\getApiCategoriesAction;
-use gift\app\actions\getHomeAction;
-use gift\app\actions\getPrestationByIdAction;
-use gift\app\actions\getPrestationsActions;
 use gift\app\actions\getApiPrestationsActions;
-use gift\app\actions\loginAction;
+use gift\app\actions\GetCategorieByIdAction;
+use gift\app\actions\GetCategoriesAction;
+use gift\app\actions\GetHomeAction;
+use gift\app\actions\GetPrestationByIdAction;
+use gift\app\actions\GetPrestationsAction;
+use gift\app\actions\LoginAction;
 use gift\app\actions\ProcessLoginAction;
 use gift\app\actions\ProcessRegisterAction;
-use gift\app\actions\registerAction;
-use gift\app\actions\updatePrestationByIdAction;
+use gift\app\actions\RegisterAction;
+use gift\app\actions\UpdatePrestationByIdAction;
 use Slim\App;
 return function (App $app) {
 
-    $app->get('/', getHomeAction::class)->setName('home');
+    $app->get('/', GetHomeAction::class)->setName('home');
 
-    $app->get('/categories', getCategoriesAction::class)->setName('categories');
+    $app->get('/categories', GetCategoriesAction::class)->setName('categories');
 
-    $app->get('/categorie/{id}', getCategorieByIdAction::class)->setName('categorie');
+    $app->get('/categorie/{id}', GetCategorieByIdAction::class)->setName('categorie');
 
-    $app->get('/categories/create', createCategorieAction::class)->setName('createCategorieGet');
+    $app->get('/categories/create', CreateCategorieAction::class)->setName('createCategorieGet');
 
-    $app->post('/categories/create', createCategorieAction::class)->setName('createCategoriePost');
+    $app->post('/categories/create', CreateCategorieAction::class)->setName('createCategoriePost');
 
-    $app->get('/prestations', getPrestationsActions::class)->setName('prestations');
+    $app->get('/prestations', GetPrestationsAction::class)->setName('prestations');
 
-    $app->get('/prestation/{id}', getPrestationByIdAction::class)->setName('prestation');
+    $app->get('/prestation/{id}', GetPrestationByIdAction::class)->setName('prestation');
 
-    $app->get('/prestation/{id}/update', updatePrestationByIdAction::class)->setName('updatePrestationGet');
+    $app->get('/prestation/{id}/update', UpdatePrestationByIdAction::class)->setName('updatePrestationGet');
 
-    $app->post('/prestation/{id}/update', updatePrestationByIdAction::class)->setName('updatePrestationPost');
+    $app->post('/prestation/{id}/update', UpdatePrestationByIdAction::class)->setName('updatePrestationPost');
 
     $app->get('/box/create[/]', BoxCreateFormAction::class)->setName('boxCreateForm');
 
     $app->post('/box/create[/]', BoxCreateProcessAction::class)->setName('boxCreatePost');
     
-    $app->get('/box/add/{presta_id}[/]', addPrestaToBoxAction::class)->setName('boxAddPresta');
+    $app->get('/box/add/{presta_id}[/]', AddPrestaToBoxAction::class)->setName('boxAddPresta');
 
     $app->get('/register[/]', RegisterAction::class)->setName("register");
     $app->post('/register-action[/]', ProcessRegisterAction::class)->setName("registerAction");

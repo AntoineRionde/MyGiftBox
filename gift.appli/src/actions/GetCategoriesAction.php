@@ -8,7 +8,7 @@ use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
-class getCategoriesAction extends AbstractAction
+class GetCategoriesAction extends AbstractAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
