@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use gift\app\actions\addPrestaToBoxAction;
 use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\BoxCreateProcessAction;
 use gift\app\actions\createCategorieAction;
@@ -33,4 +34,5 @@ return function (App $app) {
 
     $app->get('/box/create[/]', BoxCreateFormAction::class)->setName('boxCreateForm');
     $app->post('/box/create[/]', BoxCreateProcessAction::class)->setName('boxCreatePost');
+    $app->get('/box/add/{presta_id}[/]', addPrestaToBoxAction::class)->setName('boxAddPresta');
 };

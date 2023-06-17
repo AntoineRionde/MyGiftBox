@@ -15,11 +15,21 @@ class addPrestaToBoxAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): Response
     {
-        $box_id = $_SESSION['box_id'] ?? throw new \Exception('box_id is missing');
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $urlBoxForm = $routeParser->urlFor('boxCreateForm');
+        $urlPrestations = $routeParser->urlFor('prestations');
+        if (!isset($args['box_id'])) {
+            return $response->withHeader('Location', $urlBoxForm)->withStatus(401);
+        }
+
+        if (!isset($args['presta_id'])) {
+            return $response->withHeader('Location', $urlPrestations)->withStatus(405);
+        }
+
+        $box_id = $args['box_id'];
         $presta_id = $args['presta_id'];
         $boxService = new BoxService();
         $boxService->addPrestaToBox($box_id, $presta_id);
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $url = $routeParser->urlFor('box', ['box_id' => $box_id]);
         return $response->withHeader('Location', $url)->withStatus(302);
     }

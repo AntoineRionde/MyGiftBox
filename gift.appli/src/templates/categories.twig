@@ -2,12 +2,15 @@
 
 {% block content %}
     <div id="categories_container">
-        <h1 id="categories_title">Categories</h1>
+        <h1 id="title">Categories</h1>
         <hr/>
         <div id="categories_list">
             {% for categ in categories %}
-                <a href="{{ url_for('categorie', { 'id': categ['id'] }) }}"
-                   class="categories_list-item">{{ categ['libelle'] }}</a>
+                <div class="categories_list_item" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('{{ resources['shared'] }}/{{ categ['img'] }}') ">
+                    <a href="{{ url_for('categorie', { 'id': categ['id'] }) }}">
+                        <h2 class="categories_list_item-text">{{ categ['libelle'] }}</h2>
+                    </a>
+                </div>
             {% endfor %}
         </div>
     </div>
