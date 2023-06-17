@@ -9,6 +9,7 @@ use gift\app\actions\getApiCategoriesAction;
 use gift\app\actions\getHomeAction;
 use gift\app\actions\getPrestationByIdAction;
 use gift\app\actions\getApiPrestationsActions;
+use gift\app\actions\loginAction;
 use gift\app\actions\updatePrestationByIdAction;
 use Slim\App;
 return function (App $app) {
@@ -33,4 +34,10 @@ return function (App $app) {
 
     $app->get('/box/create[/]', BoxCreateFormAction::class)->setName('boxCreateForm');
     $app->post('/box/create[/]', BoxCreateProcessAction::class)->setName('boxCreatePost');
+
+    $app->get('/register[/]', RegisterAction::class)->setName("register");
+    $app->post('/register-action[/]', ProcessRegisterAction::class)->setName("registerAction");
+
+    $app->get('/login[/]', LoginAction::class)->setName("login");
+    $app->post('/login-action[/]', ProcessLoginAction::class)->setName("loginAction");
 };
