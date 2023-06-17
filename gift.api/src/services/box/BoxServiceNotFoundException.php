@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\services\box;
+namespace gift\api\services\box;
 
 class BoxServiceNotFoundException extends \Exception
 {

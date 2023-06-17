@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\services\prestations;
+namespace gift\api\services\prestations;
 
 use gift\app\models\Categorie;
 use gift\app\models\Prestation;

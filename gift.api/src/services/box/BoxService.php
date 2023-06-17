@@ -1,9 +1,9 @@
 <?php
-namespace gift\app\services\box;
-use gift\app\models\Box;
-use gift\app\models\Prestation;
-use gift\app\services\utils\CsrfService;
-use gift\app\services\utils\Eloquent;
+namespace gift\api\services\box;
+use gift\api\models\Box;
+use gift\api\models\Prestation;
+use gift\api\services\utils\CsrfService;
+use gift\api\services\utils\Eloquent;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Ramsey\Uuid\Uuid;
 

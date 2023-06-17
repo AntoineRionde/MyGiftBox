@@ -7,7 +7,7 @@
  *
  */
 
-namespace gift\app\services\utils;
+namespace gift\api\services\utils;
 
 use Illuminate\Database\Capsule\Manager as DB;
 

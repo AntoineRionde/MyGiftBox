@@ -1,15 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use gift\app\actions\BoxCreateFormAction;
-use gift\app\actions\BoxCreateProcessAction;
-use gift\app\actions\createCategorieAction;
-use gift\app\actions\getCategorieByIdAction;
-use gift\app\actions\getApiCategoriesAction;
-use gift\app\actions\getHomeAction;
-use gift\app\actions\getPrestationByIdAction;
-use gift\app\actions\getApiPrestationsActions;
-use gift\app\actions\updatePrestationByIdAction;
+
+use gift\api\actions\getApiCategoriesAction;
+use gift\api\actions\getApiPrestationsActions;
 use Slim\App;
 return function (App $app) {
 

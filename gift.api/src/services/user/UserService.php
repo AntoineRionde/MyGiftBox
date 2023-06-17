@@ -1,29 +1,39 @@
 <?php
 
-namespace gift\app\services\Auth;
+namespace gift\api\services\user;
 
-//TODO à compléter
 use Exception;
-use gift\app\models\User;
+use gift\api\models\Categorie;
+use gift\api\models\User;
 
-class Auth
+class UserService
 {
-    //Authentification
+
+    function getUser(){
+        $users = Categorie::all();
+        return $users;
+    }
+
+    //connexion
+
     /**
+     * @param string $email
+     * @param string $passwd2check
+     * @return void
+     * gère la connexion d'un user
      * @throws Exception
      */
-    public static function authenticate(string $email, string $pass):void {
+    public static function authenticate(string $email, string $passwd2check): void {
 
-        $hash = "select password from user where email = ? ";
-        if (!password_verify($pass, $hash)) {
-            throw new Exception("Auth error : invalid credentials");
-        }
-    }
+        $hash = User::where('username', $email)->pluck('password')->first();
 
-    public static function loadProfile(string $email): void {
-        $u = "select * from user where email = ? ";
+        $passhash = password_hash($hash, PASSWORD_DEFAULT, ['cost'=> 12]);
+
+        if (!password_verify($passwd2check, $passhash))
+            throw new \Exception("Auth error : invalid credentials");
 
     }
+
 
     //Inscription
     /**
@@ -85,48 +95,33 @@ class Auth
      * @throws Exception
      */
     public static function register(string $email, string $name, string $firstname, string $pass): void {
-        // Vérifier l'unicité de l'e-mail dans la table User
-        $existingUser = User::where('email',$email)->first();
-        if ($existingUser) {
-            throw new Exception("Cet e-mail est déjà utilisé.");
-        }
-
-        if (!self::checkPassStrength($pass, 8)) {
-            throw new Exception("password not enought strong : password must have at list <br>1 number, <br>1 Upper and Lower Case,<br>1 special caracters(!:;,...) <br>8 characters or more");
-        }
-
-        //Créer un nouvelle utilisateur
-        $user = new User();
-        $user->name = $name;
-        $user->firstname = $firstname;
-        $user->email = $email;
-        $user->setPassword($pass); // Définit le mot de passe en utilisant la méthode setPassword définie dans la classe User
-        $user->is_active = true;
-        $user->activation_token = null;
-        $user->role = 1; // Définit le rôle par défaut
-        $user->level = 1; // Définit le niveau par défaut
-        $user->save(); // Enregistre l'utilisateur dans la base de données
-    }
-
-    //contrôle d'accès
-    public static function checkAccessLevel(int $required): void {
-
-    }
-
-    public static function checkOwner(int $oId): void {
+        //TODO à compléter
 
     }
 
     //Activation
+
+    /**
+     * @param string $email
+     * @return string
+     * @throws Exception
+     * génère une token d'activation
+     */
     private static function generateActivitionToken(string $email): string {
         $token = bin2hex(random_bytes(64));
         return 'https://'.$_SERVER['HTTP_HOST'].'activate.php'."?token=$token";
     }
 
+    /**
+     * @param string $token
+     * @return bool
+     * active un compte utilisateur
+     */
     public static function activate(string $token): bool {
         $isActivate = false;
 
         return $isActivate;
     }
+
 
 }

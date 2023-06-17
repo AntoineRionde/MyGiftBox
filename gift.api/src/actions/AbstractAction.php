@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace gift\app\actions;
+namespace gift\api\actions;
 
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;

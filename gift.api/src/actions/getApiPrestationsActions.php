@@ -1,8 +1,8 @@
 <?php
 
-namespace gift\app\actions;
+namespace gift\api\actions;
 
-use gift\app\services\prestations\PrestationsServices;
+use gift\api\services\prestations\PrestationsServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;

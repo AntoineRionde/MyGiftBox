@@ -1,7 +1,8 @@
 <?php
 
-namespace gift\app\models;
+namespace gift\api\models;
 
+use gift\api\models\Prestation;
 use Illuminate\Database\Eloquent\Model;
 
 class Categorie extends Model

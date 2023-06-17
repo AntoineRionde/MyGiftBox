@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\services\utils;
+namespace gift\api\services\utils;
 
 class CsrfService
 {

@@ -1,6 +1,6 @@
 <?php
 
-use gift\app\services\utils\Eloquent;
+use gift\api\services\utils\Eloquent;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig as Twig;
 use Slim\Views\TwigMiddleware;
