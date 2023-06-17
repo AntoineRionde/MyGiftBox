@@ -18,7 +18,6 @@ class getApiCategoriesAction extends AbstractAction
         $response->getBody()->write(json_encode($data));
         return
             $response->withHeader('Content-Type', 'application/json')
-                ->withHeader('Access-Control-Allow-Origin', '*')
                 ->withStatus(200);
     }
 }
