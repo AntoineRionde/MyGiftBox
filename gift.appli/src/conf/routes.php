@@ -5,7 +5,7 @@ use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\BoxCreateProcessAction;
 use gift\app\actions\createCategorieAction;
 use gift\app\actions\getCategorieByIdAction;
-use gift\app\actions\getCategoriesAction;
+use gift\app\actions\getApiCategoriesAction;
 use gift\app\actions\getHomeAction;
 use gift\app\actions\getPrestationByIdAction;
 use gift\app\actions\getPrestationsActions;
@@ -15,7 +15,7 @@ return function (App $app) {
 
     $app->get('/', getHomeAction::class)->setName('home');
 
-    $app->get('/categories', getCategoriesAction::class)->setName('categories');
+    $app->get('/categories', getApiCategoriesAction::class)->setName('categories');
 
     $app->get('/categorie/{id}', getCategorieByIdAction::class)->setName('categorie');
 
