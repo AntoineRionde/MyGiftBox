@@ -1,0 +1,12 @@
+<form action="{{ url_for('registerAction') }}" method="POST">
+    <label for="username">Nom d'utilisateur (@email):</label>
+    <input type="text" name="username" id="username">
+
+    <label for="password">Mot de passe :</label>
+    <input type="password" name="password" id="password">
+
+    <label for="confirm_password">Confirmer le mot de passe :</label>
+    <input type="password" name="confirm_password" id="confirm_password">
+
+    <input type="submit" value="S'inscrire">
+</form>

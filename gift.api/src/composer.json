@@ -1,0 +1,21 @@
+{
+  "require": {
+    "php": ">=8.1",
+    "slim/slim": "^4.0",
+    "slim/psr7": "^1.6",
+    "illuminate/database": "^9.0",
+    "ramsey/uuid": "^4.7",
+    "twig/twig": "^3.0.0",
+    "slim/twig-view": "^3.3.0",
+    "phpunit/phpunit": "^10.2",
+    "fakerphp/faker": "^1.20.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "gift\\app\\": "./",
+      "gift\\test\\": "../tests/",
+      "gift\\api\\": "../../gift.api/src/"
+
+    }
+  }
+}

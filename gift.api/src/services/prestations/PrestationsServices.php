@@ -1,8 +1,11 @@
 <?php
 
-use gift\api\models\Categorie;
-use gift\api\models\Prestation;
-use gift\api\services\prestations\PrestationsServicesException;
+namespace gift\app\services\prestations;
+
+use gift\app\models\Categorie;
+use gift\app\models\Prestation;
+use gift\app\services\utils\Eloquent;
+use Throwable;
 
 class PrestationsServices
 {

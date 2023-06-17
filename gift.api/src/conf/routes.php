@@ -1,27 +1,24 @@
 <?php
 declare(strict_types=1);
 
-use gift\api\actions\GetBoxByIdAction;
-use gift\api\actions\GetCategorieByIdAction;
-use gift\api\actions\GetCatgoriesAction;
-use gift\api\actions\GetPrestationsAction;
-use gift\api\actions\GetPrestationsByCategorieAction;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+use gift\app\actions\BoxCreateFormAction;
+use gift\app\actions\BoxCreateProcessAction;
+use gift\app\actions\createCategorieAction;
+use gift\app\actions\getCategorieByIdAction;
+use gift\app\actions\getApiCategoriesAction;
+use gift\app\actions\getHomeAction;
+use gift\app\actions\getPrestationByIdAction;
+use gift\app\actions\getApiPrestationsActions;
+use gift\app\actions\updatePrestationByIdAction;
 use Slim\App;
+return function (App $app) {
 
-return function (App $app):void {
-    /* home */
-    /* consulter les prestations */
+    $app->get('/api/categories[/]', getApiCategoriesAction::class)->setName('categories');
 
-    $app->get('/categories[/]', GetCatgoriesAction::class)->setName('categories');
+    $app->get('/api/categorie/{id}/prestation', getApiPrestationCategorieByIdAction::class)->setName('prestations-catgeorie');
 
-    $app->get('/categories/{id:\d+}/prestations', GetPrestationsByCategorieAction::class)->setName('categ2prestas');
+    $app->get('/api/prestations[/]', getApiPrestationsActions::class)->setName('prestations');
 
-    $app->get('/prestations[/]', GetPrestationsAction::class)->setName('prestations');
-
-    $app->get('/categories/{id:\d+}[/]', GetCategorieByIdAction::class)->setName('categ');
-
-    $app->get('/boxes/{id}[/]', GetBoxByIdAction::class)->setName('box');
+    $app->get('/api/coffrets/{id}', getApiBoxActions::class)->setName('coffret');
 
 };
