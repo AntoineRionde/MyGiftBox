@@ -1,8 +1,14 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-    <div class="home">
-        <h1>Welcome to My Gift Box</h1>
-        <h2>Would you like to take a look at all our categories ?</h2>
+    <div id="home_container">
+        <h1 id="home-title">Bienvenue sur My Gift Box</h1>
+        <h2 id="home-subtitle">Voulez-vous faire un tour de nos prestations ?</h2>
+        <a href="/categories">
+            <div id="home_button">
+                <p id="home_button_text" class="text-darken">Allons-y !</p>
+                <img id="home_button_cart" src="{{ resources['img'] }}/cart-shopping-solid.svg" alt="cart">
+            </div>
+        </a>
     </div>
 {% endblock %}

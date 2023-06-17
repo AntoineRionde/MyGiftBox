@@ -1,13 +1,25 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-<h1>Categorie - {{cat['libelle']}}</h1>
-<h2>Description : {{cat['description']}}</h2>
-<ul>
-    {% for presta in prestations %}
-        <li>
-            <a href="{{ url_for('prestation', { 'id': presta['id'] }) }}">{{presta['libelle']}}</a>
-        </li>
-    {% endfor %}
-</ul>
+    <div id="container">
+        <button id="return">
+            <a href="{{ url_for('categories') }}">
+                <img src="{{ resources['img'] }}/arrow-left.svg" alt="arrow-left" id="return-icon"/>
+                <h3 id="return-text">Go back</h3>
+            </a>
+        </button>
+        <h1 id="title">{{ cat['libelle'] }}</h1>
+        <hr/>
+        <h2 id="categorie_description">Description : {{ cat['description'] }}</h2>
+        <ul id="prestation_list">
+            {% for presta in prestations %}
+                <li class="prestation_list-item"
+                    style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('{{ resources['shared'] }}/{{ presta['img'] }}') ">
+                    <a href="{{ url_for('prestation', { 'id': presta['id'] }) }}">
+                        <h2 class="categories_list_item-text">{{ presta['libelle'] }}</h2>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

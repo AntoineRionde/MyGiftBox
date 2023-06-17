@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Home - My Gift Box</title>
+    <title>My Gift Box</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/home.css">
-    <link rel="stylesheet" href="styles/categories.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="{{ resources['css'] }}/main.css">
 </head>
 <body>
 {% include 'header.twig' %}
-<div class="content">
-{% block content %} {% endblock %}
+<div id="content">
+    {% block content %} {% endblock %}
+    {% include 'footer.twig' %}
 </div>
-{% include 'footer.twig' %}
 </body>
 </html>

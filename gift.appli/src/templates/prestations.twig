@@ -1,12 +1,35 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-        <h1>Prestations</h1>
-        <ul>
+    <div id="container" class="center">
+        <ul id="prestations_wrapper">
             {% for presta in prestations %}
-                <li>
-                    <a href="{{ url_for('prestation', { 'id': presta['id'] }) }}">{{ presta['libelle'] }}</a>
+                <li id="prestation_wrapper">
+                    <div id="prestation_wrapper_image">
+                        <a href="{{ url_for('prestation', { 'id': presta['id'] }) }}">
+                            <img src="{{ resources['shared'] }}/{{ presta['img'] }}" alt="{{ presta['img'] }}"
+                                 id="prestation_image">
+                        </a>
+                    </div>
+                    <div id="prestation_wrapper_text">
+                        <div id="prestation_infos_wrapper">
+                            <h2>{{ presta['libelle'] }}</h2>
+                            <h2>Prix : {{ presta['tarif'] }} €</h2>
+                        </div>
+                        <div id="prestation_infos_description">
+                            <p id="prestation-description">{{ presta['description'] }}</p>
+                        </div>
+                        <p>{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
+                        <button id="prestation_button">
+                            <a href="{{ url_for('boxAddPresta', { 'presta_id': presta['id'] }) }}">
+                                <span class="prestation_button-text">Ajouter au coffret</span>
+                                <img src="{{ resources['img'] }}/box-open.svg" alt="panier"
+                                     class="prestation_button-icon">
+                            </a>
+                        </button>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
+    </div>
 {% endblock %}

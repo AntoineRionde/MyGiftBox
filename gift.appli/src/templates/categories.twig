@@ -1,14 +1,17 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-    <div class="categories">
-        <h1>Catégories</h1>
-        <ul>
+    <div id="categories_container">
+        <h1 id="title">Categories</h1>
+        <hr/>
+        <div id="categories_list">
             {% for categ in categories %}
-                <li>
-                    <a href="{{ url_for('categorie', { 'id': categ['id'] }) }}">{{ categ['libelle'] }}</a>
-                </li>
+                <div class="categories_list_item" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('{{ resources['shared'] }}/{{ categ['img'] }}') ">
+                    <a href="{{ url_for('categorie', { 'id': categ['id'] }) }}">
+                        <h2 class="categories_list_item-text">{{ categ['libelle'] }}</h2>
+                    </a>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}

@@ -1,25 +1,42 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-<h1>{{ presta['libelle'] }}</h1>
-<ul>
-    <li><a href="{{ url_for('categorie', { 'id': presta['cat_id'] }) }}">Retourner à la categorie lié</a></li>
-    <li><a href="{{ url_for('prestations') }}">Retourner aux prestations</a></li>
-    <li><a href="{{ url_for('updatePrestationGet', { 'id': presta['id'] }) }}">Modifier la prestation</a></li>
-    <li><a href="{{ url_for('boxCreateForm', {'id' : presta['id']}) }}">Ajouter la prestation au coffret courant</a> </li>
-</ul>
-<div>
-    <h2>Description</h2>
-    <p>{{ presta['description'] }}</p>
-    <h2>Url</h2>
-    <p>{{ presta['url'] }}</p>
-    <h2>Unite</h2>
-    <p>{{ presta['unite'] }}</p>
-    <h2>Tarif</h2>
-    <p>{{ presta['tarif'] }} €</p>
-    <h2>Image</h2>
-    <img src="/shared/img/{{ presta['img'] }}" alt="{{ presta['img'] }}">
-    <h2>Categorie</h2>
-    <p>{{ presta['cat_id'] }}</p>
-</div>
+    <div id="prestation_container">
+        <ul id="prestation_nav">
+            <li class="prestation_nav-item"><a href="{{ url_for('categorie', { 'id': presta['cat_id'] }) }}">Retourner à
+                    la categorie lié</a></li>
+            <li class="prestation_nav-item"><a href="{{ url_for('prestations') }}">Retourner aux prestations</a></li>
+            <li class="prestation_nav-item"><a href="{{ url_for('updatePrestationGet', { 'id': presta['id'] }) }}">Modifier
+                    la prestation</a></li>
+            <li class="prestation_nav-item"><a href="{{ url_for('boxCreateForm', {'id' : presta['id']}) }}">Ajouter la
+                    prestation au coffret
+                    courant</a></li>
+        </ul>
+        <h1 id="title">{{ presta['libelle'] }}</h1>
+        <hr/>
+
+        <div id="prestation_content">
+            <div id="prestation">
+                <img src="{{ resources['shared'] }}/{{ presta['img'] }}" alt="{{ presta['img'] }}"
+                     id="prestation-image">
+                <div id="prestation_right_container">
+                    <h2 class="prestation-title">Description</h2>
+                    <p class="prestation-text">{{ presta['description'] }}</p>
+                    <h2 class="prestation-title">Unite</h2>
+                    <p class="prestation-text">{{ presta['unite'] }}</p>
+                    <h2 class="prestation-title">Tarif</h2>
+                    <p class="prestation-text">{{ presta['tarif'] }} €</p>
+                    <h2 class="prestation-title">Categorie</h2>
+                    <p class="prestation-text">{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }})</p>
+                    <button id="prestation_button">
+                        <a href="{{ url_for('boxAddPresta', { 'presta_id': presta['id'] }) }}">
+                            <span class="prestation_button-text">Ajouter au coffret</span>
+                            <img src="{{ resources['img'] }}/box-open.svg" alt="panier"
+                                 class="prestation_button-icon">
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
