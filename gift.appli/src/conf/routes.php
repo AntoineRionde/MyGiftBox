@@ -13,6 +13,9 @@ use gift\app\actions\getPrestationByIdAction;
 use gift\app\actions\getPrestationsActions;
 use gift\app\actions\getApiPrestationsActions;
 use gift\app\actions\loginAction;
+use gift\app\actions\ProcessLoginAction;
+use gift\app\actions\ProcessRegisterAction;
+use gift\app\actions\registerAction;
 use gift\app\actions\updatePrestationByIdAction;
 use Slim\App;
 return function (App $app) {
@@ -36,7 +39,9 @@ return function (App $app) {
     $app->post('/prestation/{id}/update', updatePrestationByIdAction::class)->setName('updatePrestationPost');
 
     $app->get('/box/create[/]', BoxCreateFormAction::class)->setName('boxCreateForm');
+
     $app->post('/box/create[/]', BoxCreateProcessAction::class)->setName('boxCreatePost');
+    
     $app->get('/box/add/{presta_id}[/]', addPrestaToBoxAction::class)->setName('boxAddPresta');
 
     $app->get('/register[/]', RegisterAction::class)->setName("register");
