@@ -21,7 +21,7 @@
                         </div>
                         <p>{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
                         <button id="prestation_button" class="red">
-                            <a href="{{ url_for('removePresta', { 'presta_id': presta['id'] }) }}">
+                            <a href="{{ url_for('boxRemovePrestaPostPost', { 'presta_id': presta['id'] }) }}">
                                 <span class="prestation_button-text">Supprimer la prestation</span>
                                 <img src="{{ resources['img'] }}/minus.svg" alt="remove"
                                      class="prestation_button-icon">
