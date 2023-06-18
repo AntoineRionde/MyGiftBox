@@ -58,7 +58,7 @@ return function (App $app) {
 
     $app->get('/box/add/{presta_id}', AddPrestaToBoxAction::class)->setName('boxAddPresta');
 
-    $app->get('/boxs', GetBoxsUserAction::class)->setName('boxsUser');
+    $app->get('/boxs[/]', GetBoxsUserAction::class)->setName('boxsUser');
 
     $app->get('/register', RegisterAction::class)->setName("register");
     $app->post('/register', ProcessRegisterAction::class)->setName("registerAction");
