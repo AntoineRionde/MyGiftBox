@@ -1,28 +1,25 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-    <head>
-        <meta charset="UTF-8">
-        <title>Paiement de la box</title>
-    </head>
-    <body>
-    <h1>Paiement de la box</h1>
-
     {% if error %}
         <p style="color: red;">{{ error }}</p>
     {% endif %}
-
-    <form action="/process-payment" method="POST">
-        <label for="card-number">Numéro de carte :</label>
-        <input type="text" id="card-number" name="card-number" required>
-        <br>
-        <label for="expiration-date">Date d'expiration :</label>
-        <input type="text" id="expiration-date" name="expiration-date" required>
-        <br>
-        <label for="cvv">CVV :</label>
-        <input type="text" id="cvv" name="cvv" required>
-        <br>
-        <input type="submit" value="Payer">
-    </form>
-    </body>
+    <div id="container" class="center">
+        <form action="{{ url_for('boxGenerateUrl') }}" method="POST" id="form">
+            <label for="card-number">Numéro de carte :</label>
+            <input type="text" id="card-number" name="card-number" required class="form_input">
+            <br>
+            <label for="expiration-date">Date d'expiration :</label>
+            <input type="text" id="expiration-date" name="expiration-date" required class="form_input">
+            <br>
+            <label for="cvv">CVV :</label>
+            <input type="text" id="cvv" name="cvv" required class="form_input">
+            <div class="form_infos">
+                <a href="{{ url_for('box', {'box_token': box['token']}) }}">
+                    <button type="button" class="form_button red text-darken"> Annuler ?</button>
+                </a>
+                <input type="submit" value="Payer" class="form_button green text-darken">
+            </div>
+        </form>
+    </div>
 {% endblock %}

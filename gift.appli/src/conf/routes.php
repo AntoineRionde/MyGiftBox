@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-use gift\app\actions\DeleteBoxPrestaAction;
+use gift\app\actions\BoxDeletePrestaProcessAction;
 use gift\app\actions\ProcessAddPrestaToBox;
 use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\ProcessBoxCreateAction;
@@ -31,31 +31,23 @@ return function (App $app) {
     $app->get('/', GetHomeAction::class)->setName('home');
 
     $app->get('/categories', GetCategoriesAction::class)->setName('categories');
-
     $app->get('/categorie/{id}', GetCategorieByIdAction::class)->setName('categorie');
-
     $app->get('/categories/create', CreateCategorieAction::class)->setName('createCategorieGet');
-
     $app->post('/categories/create', CreateCategorieAction::class)->setName('createCategoriePost');
 
     $app->get('/prestations', GetPrestationsAction::class)->setName('prestations');
-
     $app->get('/prestation/{id}', GetPrestationByIdAction::class)->setName('prestation');
-
     $app->get('/prestation/{id}/update', UpdatePrestationByIdAction::class)->setName('updatePrestationGet');
-
     $app->post('/prestation/{id}/update', UpdatePrestationByIdAction::class)->setName('updatePrestationPost');
 
     $app->get('/box/create', BoxCreateFormAction::class)->setName('boxCreateForm');
     $app->post('/box/create', ProcessBoxCreateAction::class)->setName('boxCreatePost');
-    
-    $app->get('/box/pay[/]', PayBoxAction::class)->setName('payBoxForm');
-    $app->post('/box/pay[/]', PayBoxProcessAction::class)->setName('payBoxPost');
-
+    $app->get('/box/{box_token}/pay[/]', PayBoxAction::class)->setName('payBoxForm');
+    $app->post('/box/{box_token}/pay[/]', PayBoxProcessAction::class)->setName('payBoxPost');
+    $app->get('/boxs/{box_token}/validate', GetBoxsUserAction::class)->setName('boxValidate');
     $app->get('/box/{box_token}', GetBoxByIdAction::class)->setName('box');
     $app->post('/box/add/{presta_id}', ProcessAddPrestaToBox::class)->setName('boxAddPrestaPost');
-    $app->get('/box/remove/{box_token}', DeleteBoxPrestaAction::class)->setName('boxRemovePresta');
-
+    $app->get('/box/remove/{box_token}', BoxDeletePrestaProcessAction::class)->setName('boxRemovePresta');
     $app->get('/boxs[/]', GetBoxsUserAction::class)->setName('boxsUser');
 
     $app->get('/register', RegisterAction::class)->setName("register");

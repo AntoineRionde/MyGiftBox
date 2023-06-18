@@ -5,6 +5,10 @@ body {
     padding: 0;
     font-family: 'Poppins', sans-serif;
     background: #FFE7D8;
+    font-style: normal;
+    color: #5A4A3F;
+
+    text-transform: capitalize;
 }
 
 a {
@@ -710,6 +714,7 @@ nav {
     border-radius: 15px;
 }
 
+
 .box_infos_button:hover {
     cursor: pointer;
 }
@@ -764,6 +769,23 @@ nav {
     justify-content: center;
 
     text-align: center;
+}
+
+#box_add_infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.box_icon {
+    margin-left: 1em;
+    padding: 0.5em;
+    background: #BFFFDD;
+    width: 2.5em;
+    height: 2.5em;
+
+    border-radius: 50%;
 }
 
 /*------------------- FOOTER -------------------*/

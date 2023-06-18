@@ -22,7 +22,7 @@
                         <p class="margin-lower">{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
                         {% if isOwner %}
                             <button id="prestation_button" class="margin-lower red">
-                                <a href="{{ url_for('boxRemovePresta',{ 'box_token': box_token } ,{ 'presta': presta['id'] }) }}">
+                                <a href="{{ url_for('boxRemovePresta',{ 'box_token': token } ,{ 'presta': presta['id'] }) }}">
                                     <span class="prestation_button-text">Supprimer la prestation</span>
                                     <img src="{{ resources['img'] }}/minus.svg" alt="remove"
                                          class="prestation_button-icon">
@@ -33,19 +33,49 @@
                 </li>
             {% endfor %}
             {% if isOwner %}
-                <li id="box_container_add">
-                    <div id="box_container_add_image">
-                        <a href="{{ url_for('prestations', {}) }}">
-                            <img src="{{ resources['img'] }}/plus.svg" alt="{{ presta['img'] }}">
-                        </a>
-                    </div>
-                    <div id="box_container_add_text">
-                        <div id="box_container_add_infos">
-                            <h2>Ajouter une nouvelle prestation</h2>
+                {% if box['statut'] == 1 %}
+                    <li id="box_container_add">
+                        <div id="box_container_add_image">
+                            <a href="{{ url_for('prestations', {}) }}">
+                                <img src="{{ resources['img'] }}/plus.svg" alt="{{ presta['img'] }}">
+                            </a>
                         </div>
-                    </div>
-                </li>
+                        <div id="box_container_add_text">
+                            <div id="box_container_add_infos">
+                                <h2>Ajouter une nouvelle prestation</h2>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
             {% endif %}
         </ul>
+        {% if box['kdo'] %}
+            <div id="box_kdo">
+                <h2>Au destinataire de la box</h2>
+                <form action="{{ url_for('boxKdo', { 'box_token': token }) }}" method="post">
+                    <input type="text" name="kdo" id="kdo" placeholder="Code promo">
+                    <input type="submit" value="Valider">
+                </form>
+            </div>
+        {% endif %}
+        {% if isOwner %}
+            <div id="box_add_infos">
+                {% if box['statut'] == 1 %}
+                    <a href="{{ url_for('box',{ 'box_token': token } ,{ 'setMain': true }) }}">
+                        <button class="box_infos_button green">
+                            Activer en tant que Box Principale
+                        </button>
+                    </a>
+                    <a href="{{ url_for('box',{ 'box_token': token }, { 'validate': true}) }}">
+                        <img src="{{ resources['img'] }}/valid.svg" alt="valid" class="box_icon">
+                    </a>
+                {% endif %}
+                {% if box['statut'] == 2 %}
+                    <a href="{{ url_for('payBoxForm',{ 'box_token': token }) }}">
+                        <img src="{{ resources['img'] }}/cart.svg" alt="cart" class="box_icon"/>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
