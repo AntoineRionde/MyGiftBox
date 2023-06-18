@@ -101,4 +101,10 @@ class BoxService
             throw new BoxServiceNotFoundException("error : box not exist");
         }
     }
+
+    public function getPrestationsByBoxId(mixed $id)
+    {
+        $box = Box::with('prestations')->findOrFail($id);
+        return $box->prestations->toArray();
+    }
 }

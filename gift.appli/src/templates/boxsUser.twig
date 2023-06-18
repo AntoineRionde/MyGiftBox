@@ -1,10 +1,5 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-<div class="container">
-    {% for box in boxs %}
-     <!-- Afficher toutes les boxs avec le template box.twig -->
-        {% include "box.twig" with {box: box} %}
-    {% endfor %}
-    </div>
+    {% include 'box.twig' with{prestations: prestations} %}
 {% endblock %}
