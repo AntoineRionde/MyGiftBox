@@ -1,0 +1,31 @@
+{% extends "squelette.twig" %}
+
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Paiement de la box</title>
+    </head>
+    <body>
+    <h1>Paiement de la box</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form action="/process-payment" method="POST">
+        <label for="card-number">Numéro de carte :</label>
+        <input type="text" id="card-number" name="card-number" required>
+        <br>
+        <label for="expiration-date">Date d'expiration :</label>
+        <input type="text" id="expiration-date" name="expiration-date" required>
+        <br>
+        <label for="cvv">CVV :</label>
+        <input type="text" id="cvv" name="cvv" required>
+        <br>
+        <label for="amount">Montant :</label>
+        <input type="text" id="amount" name="amount" required>
+        <br>
+        <input type="submit" value="Payer">
+    </form>
+    </body>
+{% endblock %}
