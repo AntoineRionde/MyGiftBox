@@ -484,7 +484,7 @@ nav {
 
 
 #prestation_wrapper_text > p {
-    margin: 0;
+    margin: 1.5em 0;
     font-style: normal;
     font-weight: 500;
     font-size: 1.1em;
@@ -506,8 +506,12 @@ nav {
     font-size: 1.2em;
 }
 
+.description-higher {
+    height: fit-content !important;
+}
+
 #prestation_button {
-    margin: 1em 0;
+    margin: 1.5em 0;
     padding: 0.5em 1em;
 
     display: flex;
@@ -523,6 +527,14 @@ nav {
     font-weight: 500;
     font-size: 1.2em;
     color: white;
+}
+
+.margin-lower {
+    margin: 0.5em !important;
+}
+
+#prestation_button:hover {
+    cursor: pointer;
 }
 
 #prestation_button > a {
