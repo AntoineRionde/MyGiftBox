@@ -152,6 +152,7 @@ nav {
 .green {
     background-color: #A3D9B1 !important;
 }
+
 /*------------------- HOME -------------------*/
 
 #home_container {
@@ -652,6 +653,67 @@ nav {
     text-transform: capitalize;
 }
 
+/*------------------- BOXS -------------------*/
+
+#boxs_container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.box_infos_container {
+    width: 60%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background: white;
+    border-radius: 20px;
+}
+
+.box_title {
+    margin: 1em 1em;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5em;
+    color: #5A4A3F;
+
+    text-transform: capitalize;
+}
+
+.box_infos{
+    margin: 0 1em;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #5A4A3F;
+
+    text-transform: capitalize;
+}
+
+.box_infos_button {
+    margin: 0 1em;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #5A4A3F;
+    border: none;
+    padding: .5em;
+    border-radius: 15px;
+}
+
+.box_infos_button:hover {
+    cursor: pointer;
+}
+
 /*------------------- BOX -------------------*/
 
 #box_wrapper {
@@ -703,6 +765,7 @@ nav {
 
     text-align: center;
 }
+
 /*------------------- FOOTER -------------------*/
 
 footer {
