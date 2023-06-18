@@ -1,0 +1,11 @@
+{% extends "squelette.twig" %}
+
+{% block content %}
+    <h1>Informations utilisateur</h1>
+
+    <p><strong>Nom :</strong> {{ user.nom }}</p>
+    <p><strong>Prénom :</strong> {{ user.prenom }}</p>
+    <p><strong>Nom d'utilisateur :</strong> {{ user.email }}</p>
+    <!-- Ajoutez d'autres informations de l'utilisateur ici si nécessaire -->
+
+{% endblock %}

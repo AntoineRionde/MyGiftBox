@@ -26,6 +26,6 @@ class Box extends Model
 
     public function user()
     {
-        return $this->belongsTo('gift\app\models\User');
+        return $this->belongsTo(User::class);//'gift\app\models\User');
     }
 }

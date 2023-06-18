@@ -14,6 +14,6 @@ class User extends Model
 
     public function box()
     {
-        return $this->hasMany('gift\app\models\Box');
+        return $this->hasMany(Box::class); //'gift\app\models\Box');
     }
 }
