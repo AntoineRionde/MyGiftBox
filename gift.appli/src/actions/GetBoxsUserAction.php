@@ -3,6 +3,7 @@
 namespace gift\app\actions;
 
 use gift\app\services\box\BoxService;
+use gift\app\services\prestations\PrestationsServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -34,14 +35,9 @@ class GetBoxsUserAction extends AbstractAction
         $userId = $_SESSION['user']['id'];
         $boxService = new BoxService();
         $boxs = $boxService->getBoxsIdByUserId($userId);
-        // ajouter toutes les prestations de chaque box
-        $prestations = [];
-        foreach ($boxs as $box) {
-            $prestations[$box['id']] = $boxService->getPrestationsByBoxToken($box['id']);
-        }
-        var_dump($boxs);
-//        echo $userId;
-        return $view->render($response, 'boxsUser.twig', ['boxs' => $boxs, 'prestations' => $prestations, 'resources' => $resources]);
+//        var_dump($boxs);
+        // echo $userId;
+        return $view->render($response, 'boxsUser.twig', ['boxs' => $boxs, 'resources' => $resources]);
 
     }
 }

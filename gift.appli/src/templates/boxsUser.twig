@@ -1,6 +1,13 @@
-
+{% extends "squelette.twig" %}
 {% block content %}
-    {% for box in boxs %}
-        {% include 'box.twig' with{prestations:prestations} %}
-    {% endfor %}
+        <div id="container" class="center">
+                {% for box in boxs %}
+                        <h2>Nom : {{ box['libelle'] }}</h2>
+                        <p>Description : {{ box['description'] }}</p>
+                        <p>Montant : {{ box['montant'] }}</p>
+                        <a href="{{ url_for('box', {'box_token': box['id'] }) }}">Voir plus</a>
+                        <br />
+                        <br />
+                {% endfor %}
+        </div>
 {% endblock %}

@@ -112,6 +112,4 @@ class BoxService
         $box = Box::with('prestations')->findOrFail($token);
         return $box->prestations->toArray();
     }
-
-
 }
