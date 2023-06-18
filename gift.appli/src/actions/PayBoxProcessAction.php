@@ -23,7 +23,8 @@ class PayBoxProcessAction extends AbstractAction
         $boxService = new BoxService();
 
         try {
-            $boxService->payBox();
+            $token = $_SESSION['box_token'];
+            $boxService->payBox($token);
             $url = $routeContext->getRouteParser()->urlFor('home');
         }catch (Exception $exception) {
             $url = $routeContext->getRouteParser()->urlFor('payBoxForm', [], ['error' => 'invalid payment information']);

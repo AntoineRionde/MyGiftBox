@@ -37,7 +37,7 @@ class GetBoxsUserAction extends AbstractAction
         // ajouter toutes les prestations de chaque box
         $prestations = [];
         foreach ($boxs as $box) {
-            $prestations[$box['id']] = $boxService->getPrestationsByBoxId($box['id']);
+            $prestations[$box['id']] = $boxService->getPrestationsByBoxToken($box['id']);
         }
         return $view->render($response, 'boxsUser.twig', ['boxs' => $boxs, 'prestations' => $prestations, 'resources' => $resources]);
 
