@@ -111,4 +111,6 @@ class BoxService
         $box = Box::with('prestations')->findOrFail($id);
         return $box->prestations->toArray();
     }
+
+
 }
