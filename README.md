@@ -2,6 +2,27 @@
 
 ## Groupe : ARNAUD Elian - SERRIER Mathéo - RIONDE Antoine
 
+## Installation
+
+### Prérequis
+#### Docker
+
+Les conteneurs sont disponibles sur le dossier de 'arnaud35u/MyGiftBox' sur docketu.
+
+* php : port 40000
+* php-api : port 44444
+* adminer : port 50000
+* mysql : port 60000
+
+Faite la commande suivante sur docketu pour lancer les conteneurs : 
+```bash 
+docker-compose up -d
+```
+Les conteneurs sont lancés en arrière-plan, pour les arrêter, il faut faire la commande suivante :
+```bash
+docker-compose stop
+```
+
 ## Donnée de test : 
 
 * User
@@ -86,4 +107,7 @@
 * [24] : Api : accès à un coffret
   * Etat : fonctionnel
   * réalisé par ARNAUD Elian & SERRIER Mathéo
+* [Bonus] : CSS
+  * Etat : fonctionnel
+  * réalisé par ARNAUD Elian
 
