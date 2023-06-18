@@ -20,21 +20,30 @@ class ProcessLoginAction extends AbstractAction
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $routeContext = RouteContext::fromRequest($request);
+        $urlLogin = $routeContext->getRouteParser()->urlFor('login');
 
-        if($request->getMethod() === 'POST'){
+        if($request->getMethod() === 'POST') {
             $email = filter_var($request->getParsedBody()['email'], FILTER_SANITIZE_EMAIL);
             $password = htmlspecialchars($request->getParsedBody()['password']);
+
+            if (isset($_SESSION['target_url'])) {
+                $url = $_SESSION['target_url'];
+                unset($_SESSION['target_url']);
+            } else {
+                $url = $routeContext->getRouteParser()->urlFor('home');
+            }
+
+
+            $authService = new AuthService();
+
+            try {
+                $authService->authenticate($email, $password);
+            } catch (Exception $e) {
+                $url = $routeContext->getRouteParser()->urlFor('login', [], ['error' => $e->getMessage()]);
+            }
+
+            return $response->withHeader('Location', $url)->withStatus(302);
         }
-
-        $authService = new AuthService();
-
-        try {
-            $authService->authenticate($email, $password);
-            $url = $routeContext->getRouteParser()->urlFor('home');
-        }catch (Exception $e) {
-            $url = $routeContext->getRouteParser()->urlFor('login', [], ['error' => 'wrong email or password']);
-        }
-
-        return $response->withHeader('Location', $url)->withStatus(302);
+        return $response->withHeader('Location', $urlLogin)->withStatus(302);
     }
 }

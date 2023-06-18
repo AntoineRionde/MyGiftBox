@@ -18,7 +18,7 @@ class AuthService
      */
     public function authenticate(string $email, string $passwd2check): void {
 
-        $hash = User::where('username', $email)->pluck('password')->first();
+        $hash = User::where('email', $email)->pluck('password')->first();
 
         $passhash = password_hash($hash, PASSWORD_DEFAULT, ['cost'=> 12]);
 

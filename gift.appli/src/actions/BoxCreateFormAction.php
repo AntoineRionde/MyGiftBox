@@ -24,9 +24,9 @@ class BoxCreateFormAction extends AbstractAction
         $view = Twig::fromRequest($request);
         $token = CsrfService::generate();
 
-        /*if (!isset($_SESSION['user'])) {
-            return  $response->withHeader('Location', $urlLogin)->withStatus(302);
-        }*/
+        if (!isset($_SESSION['user'])) {
+            return $response->withHeader('Location', $urlLogin)->withStatus(302);
+        }
 
         $basePath = RouteContext::fromRequest($request)->getBasePath();
         $css_dir = $basePath . "/styles";
