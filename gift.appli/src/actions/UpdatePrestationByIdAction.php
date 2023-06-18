@@ -6,6 +6,8 @@ use gift\app\services\prestations\PrestationsServices;
 use gift\app\services\prestations\PrestationsServicesException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+use Slim\Routing\RouteContext;
+use Slim\Views\Twig;
 
 class UpdatePrestationByIdAction extends AbstractAction
 {
@@ -27,6 +29,7 @@ class UpdatePrestationByIdAction extends AbstractAction
             return $response->withHeader('Location', "/prestation/{$id}");
         }
         $prestation = $prestations->getPrestationById($id);
+        /**
         $html = <<<HTML
 <html>
     <head>
@@ -56,7 +59,16 @@ class UpdatePrestationByIdAction extends AbstractAction
     </body>
 </html>
 HTML;
+
         $response->getBody()->write($html);
+        return $response;*/
+        $basePath = RouteContext::fromRequest($request)->getBasePath() ;
+        $css_dir = $basePath . "/styles";
+        $img_dir = $basePath . "/img";
+        $shared_dir = $basePath . "/shared/img";
+        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'user' => $_SESSION['user'] ?? null];
+        $view = Twig::fromRequest($request);
+        $view->render($response, 'edit-prestation.twig', ['resources' => $resources]);
         return $response;
     }
 }

@@ -1,0 +1,23 @@
+{% extends "squelette.twig" %}
+
+{% block content %}
+    <h1>Modifier une prestation</h1>
+    <a href="/"><button>Home</button></a>
+    <form action="/prestation/{$id}/update" method="post">
+        <label for="libelle">Libelle</label>
+        <input type="text" name="libelle" id="libelle" value="{$prestation['libelle']}">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" value="{$prestation['description']}">
+        <label for="url">Url</label>
+        <input type="text" name="url" id="url" value="{$prestation['url']}">
+        <label for="unite">Unite</label>
+        <input type="text" name="unite" id="unite" value="{$prestation['unite']}">
+        <label for="tarif">Tarif</label>
+        <input type="text" name="tarif" id="tarif" value="{$prestation['tarif']}">
+        <label for="img">Image</label>
+        <input type="text" name="img" id="img" value="{$prestation['img']}">
+        <label for="cat_id">Categorie</label>
+        <input type="text" name="cat_id" id="cat_id" value="{$prestation['cat_id']}" required>
+        <input type="submit" value="Modifier">
+    </form>
+{% endblock %}
