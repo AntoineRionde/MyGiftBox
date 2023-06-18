@@ -4,6 +4,7 @@ namespace gift\app\actions;
 
 use Exception;
 use gift\app\services\auth\AuthService;
+use gift\app\services\box\BoxService;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -37,7 +38,11 @@ class ProcessLoginAction extends AbstractAction
             $authService = new AuthService();
 
             try {
-                $authService->authenticate($email, $password);
+                $user = $authService->authenticate($email, $password);
+                $boxService = new BoxService();
+                $box = $boxService->getMostRecentBox($user['id']);
+                $_SESSION['box_token']  = $box['token'];
+                $_SESSION['user'] = $user;
             } catch (Exception $e) {
                 $url = $routeContext->getRouteParser()->urlFor('login', [], ['error' => $e->getMessage()]);
             }
