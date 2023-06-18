@@ -12,7 +12,10 @@ class BoxService
 {
     public function deletePresta(string $token, string $presta_id)
     {
-        $box = Box::find($token);
+        $box = Box::where('token', $token)->first();
+        if (!$box) {
+            throw new BoxServiceNotFoundException("boxNotFound", 400);
+        }
         $box->prestations()->detach($presta_id);
         $box->save();
         return $box;
@@ -54,21 +57,27 @@ class BoxService
 
     public function getBoxByToken(string $token): array
     {
-        $box = Box::with('prestations')->findOrFail($token);
+        $box = Box::where('token', $token)->first();
+        if (!$box) {
+            throw new BoxServiceNotFoundException("boxNotFound", 400);
+        }
         return $box->toArray();
     }
 
     public function addPresta(string $token, string $presta_id, int $quantity) : void
     {
-        $box = Box::findOrFail($token);
+        $box = Box::where('token', $token)->first();
+        if (!$box) {
+            throw new BoxServiceNotFoundException("boxNotFound", 400);
+        }
         $presta = Prestation::findOrFail($presta_id);
 
         $boxContent = $box->prestations()->get();
 
         if ($boxContent->contains($presta_id)) {
-            $box->prestations()->updateExistingPivot($presta_id, ['quantity' => $quantity]);
+            $box->prestations()->updateExistingPivot($presta_id, ['quantite' => $quantity]);
         } else {
-            $box->prestations()->attach($presta_id, ['quantity' => $quantity]);
+            $box->prestations()->attach($presta_id, ['quantite' => $quantity]);
         }
         $box->montant += $presta->tarif * $quantity;
         $box->save();
@@ -77,12 +86,18 @@ class BoxService
     public function getBoxsIdByUserId(int $id): array
     {
         $boxs = Box::where('user_id', $id)->get();
+        if (!$boxs) {
+            throw new BoxServiceNotFoundException("boxsNotFound", 400);
+        }
         return $boxs->toArray();
     }
 
     public function isOwner(string $token, int $user_id) : void
     {
-        $box = Box::findOrFail($token);
+        $box = Box::where('token', $token)->first();
+        if (!$box) {
+            throw new BoxServiceNotFoundException("boxNotFound", 400);
+        }
         if ($box->user_id !== $user_id) {
             throw new BoxServiceInvalidDataException("notOwner", 400);
         }
@@ -97,7 +112,10 @@ class BoxService
     public function payBox($token) : void
     {
         try {
-            $box = Box::findOrFail($token);
+            $box = Box::where('token', $token)->first();
+            if (!$box) {
+                throw new BoxServiceNotFoundException("boxNotFound", 400);
+            }
             $statut = Box::PAYED;
             $box->statut = $statut;
             $box->save();
@@ -109,7 +127,21 @@ class BoxService
 
     public function getPrestationsByBoxToken(string $token) : array
     {
-        $box = Box::with('prestations')->findOrFail($token);
+        $box = Box::where('token', $token)->first();
+        if (!$box) {
+            throw new BoxServiceNotFoundException("boxNotFound", 400);
+        }
         return $box->prestations->toArray();
     }
+
+    public function getMostRecentBox(int $user_id) : array
+    {
+        $box = Box::where('user_id', $user_id)->orderBy('updated_at', 'desc')->first();
+        if (!$box) {
+            throw new BoxServiceNotFoundException("boxNotFound", 400);
+        }
+        return $box->toArray();
+    }
+
+
 }
