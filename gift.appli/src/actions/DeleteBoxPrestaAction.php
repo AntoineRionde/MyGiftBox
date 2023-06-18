@@ -6,6 +6,7 @@ use gift\app\services\box\BoxService;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
+use Slim\Views\Twig;
 
 class DeleteBoxPrestaAction extends AbstractAction
 {
@@ -23,9 +24,8 @@ class DeleteBoxPrestaAction extends AbstractAction
         $shared_dir = $basePath . "/shared/img";
         $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir];
 
-        //TODO à finir
-        //comment récupérer l'id de la box courante et l'id de la presteation qu'on veut supprimer
-        $boxService = new BoxService();
-        $boxService->deletePresta();
+        $view = Twig::fromRequest($request);
+        $view->render($response, 'box.twig', ['resources' => $resources]);
+        return $response;
     }
 }

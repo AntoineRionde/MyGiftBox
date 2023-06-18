@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 
+use gift\app\actions\DeleteBoxPrestaAction;
 use gift\app\actions\ProcessAddPrestaToBox;
 use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\ProcessBoxCreateAction;
@@ -53,6 +54,8 @@ return function (App $app) {
 
     $app->get('/box/{box_id}', GetBoxByIdAction::class)->setName('box');
     $app->post('/box/add/{presta_id}', ProcessAddPrestaToBox::class)->setName('boxAddPrestaPostPost');
+
+    $app->post('/box/remove/{presta_id}', DeleteBoxPrestaAction::class)->setName('boxRemovePrestaPostPost');
 
     $app->get('/boxs[/]', GetBoxsUserAction::class)->setName('boxsUser');
 
