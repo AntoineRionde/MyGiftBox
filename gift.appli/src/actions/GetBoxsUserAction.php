@@ -37,7 +37,7 @@ class GetBoxsUserAction extends AbstractAction
         // ajouter toutes les prestations de chaque box
         $prestations = [];
         foreach ($boxs as $box) {
-            $prestations[$box['id']] = $boxService->getPrestationsByBoxId($box['id']);
+            $prestations[$box['id']] = $boxService->getPrestationsByBoxToken($box['id']);
         }
         var_dump($boxs);
 //        echo $userId;

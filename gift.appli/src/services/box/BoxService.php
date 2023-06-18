@@ -10,9 +10,9 @@ use Ramsey\Uuid\Uuid;
 
 class BoxService
 {
-    public function deletePresta(string $box_id, string $presta_id)
+    public function deletePresta(string $token, string $presta_id)
     {
-        $box = Box::find($box_id);
+        $box = Box::find($token);
         $box->prestations()->detach($presta_id);
         $box->save();
         return $box;
@@ -48,19 +48,19 @@ class BoxService
         $box->created_at = date('Y-m-d H:i:s');
         $box->updated_at = date('Y-m-d H:i:s');
         $box->save();
-        $_SESSION['box_id'] = $box->id;
+        $_SESSION['box_token'] = $box->token;
         return $box->toArray();
     }
 
-    public function getBoxById(string $id): array
+    public function getBoxByToken(string $token): array
     {
-        $box = Box::with('prestations')->findOrFail($id);
+        $box = Box::with('prestations')->findOrFail($token);
         return $box->toArray();
     }
 
-    public function addPresta(string $box_id, string $presta_id, int $quantity)
+    public function addPresta(string $token, string $presta_id, int $quantity) : void
     {
-        $box = Box::findOrFail($box_id);
+        $box = Box::findOrFail($token);
         $presta = Prestation::findOrFail($presta_id);
 
         $boxContent = $box->prestations()->get();
@@ -80,24 +80,24 @@ class BoxService
         return $boxs->toArray();
     }
 
-    public function isOwner(string $box_id, int $user_id)
+    public function isOwner(string $token, int $user_id) : void
     {
-        $box = Box::findOrFail($box_id);
+        $box = Box::findOrFail($token);
         if ($box->user_id !== $user_id) {
             throw new BoxServiceInvalidDataException("notOwner", 400);
         }
     }
 
     /**
-     * @param string $box_id
+     * @param string $token
      * @return void
      * payement d'une box
      * @throws BoxServiceNotFoundException
      */
-    public function payBox()
+    public function payBox($token) : void
     {
         try {
-            $box = Box::findOrFail($this);
+            $box = Box::findOrFail($token);
             $statut = Box::PAYED;
             $box->statut = $statut;
             $box->save();
@@ -107,9 +107,9 @@ class BoxService
         }
     }
 
-    public function getPrestationsByBoxId(mixed $id)
+    public function getPrestationsByBoxToken(string $token) : array
     {
-        $box = Box::with('prestations')->findOrFail($id);
+        $box = Box::with('prestations')->findOrFail($token);
         return $box->prestations->toArray();
     }
 

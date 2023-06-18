@@ -16,7 +16,7 @@ class AuthService
      * gère la connexion d'un user
      * @throws Exception
      */
-    public function authenticate(string $email, string $password): void
+    public function authenticate(string $email, string $password): ?array
     {
 
         if (empty($email) || empty($password)) {
@@ -37,7 +37,7 @@ class AuthService
             $user->active = 1;
         }
 
-        $_SESSION['user'] = $user->toArray();
+        return $user->toArray();
     }
 
 

@@ -29,19 +29,19 @@ class GetBoxByIdAction extends AbstractAction
         if (!isset($args['box_id'])) {
             return $response->withHeader('Location', $urlHome)->withStatus(302);
         }
-        $user_id = $_SESSION['user']['id'];
+        $user_id = $_SESSION['user']['token'];
 
-        $id = (string) $args['box_id'];
+        $token = (string) $args['box_token'];
         $boxServices = new BoxService();
 
         try {
-            $boxServices->isOwner($id, $user_id);
+            $boxServices->isOwner($token, $user_id);
         } catch (Exception $e) {
             $url = $routeContext->getRouteParser()->urlFor('home', [], ['error' => $e->getMessage()]);
             return $response->withHeader('Location', $url)->withStatus(302);
         }
 
-        $prestations = $boxServices->getPrestationsByBoxId($id);
+        $prestations = $boxServices->getPrestationsByBoxToken($token);
 
         $basePath = RouteContext::fromRequest($request)->getBasePath();
         $css_dir = $basePath . "/styles";
@@ -49,7 +49,7 @@ class GetBoxByIdAction extends AbstractAction
         $shared_dir = $basePath . "/shared/img";
         $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'user' => $_SESSION['user'] ?? null];
         $view = Twig::fromRequest($request);
-        $view->render($response, 'box.twig', ['prestations' => $prestations, 'resources' => $resources]);
+        $view->render($response, 'box.twig', ['prestations' => $prestations, 'box_id' => $token, 'resources' => $resources]);
         return $response;
     }
 }

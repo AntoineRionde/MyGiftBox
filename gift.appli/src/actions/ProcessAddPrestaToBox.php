@@ -39,18 +39,18 @@ class ProcessAddPrestaToBox extends AbstractAction
                 return $response->withHeader('Location', $loginUrl)->withStatus(302);
             }
 
-            if (!isset($_SESSION['box_id'])) {
+            if (!isset($_SESSION['box_token'])) {
                 return $response->withHeader('Location', $urlBoxForm)->withStatus(302);
             }
 
-            $box_id = $_SESSION['box_id'];
+            $box_token = $_SESSION['box_token'];
             $user = $_SESSION['user'];
             $presta_id = $args['presta_id'];
             $boxService = new BoxService();
             try {
-                $boxService->isOwner($box_id, $user['id']);
-                $boxService->addPresta($box_id, $presta_id, $quantite);
-                $url = $routeParser->urlFor('box', ['box_id' => $box_id]);
+                $boxService->isOwner($box_token, $user['id']);
+                $boxService->addPresta($box_token, $presta_id, $quantite);
+                $url = $routeParser->urlFor('box', ['box_token' => $box_token]);
             } catch (\Exception $e) {
                 $url = $routeParser->urlFor('prestations', [], ['error' => $e->getMessage() === 'NotOwnerBox' ? 'NotOwnerBox' : 'prestaNotFound']);
             }
