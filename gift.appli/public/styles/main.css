@@ -142,15 +142,15 @@ nav {
     padding: 0.5em;
     border-radius: 10px;
 
-    color: #312821 !important;
+    color: #312821;
 }
 
 .red {
-    background-color: #FF7061;
+    background-color: #FF7061 !important;
 }
 
 .green {
-    background-color: #A3D9B1;
+    background-color: #A3D9B1 !important;
 }
 /*------------------- HOME -------------------*/
 
@@ -509,6 +509,11 @@ nav {
 #prestation_button {
     margin: 1em 0;
     padding: 0.5em 1em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 
     background: #BFFFDD;
     border: none;
