@@ -25,9 +25,9 @@ class ProcessAddPrestaToBox extends AbstractAction
 
         if ($request->getMethod() === 'POST') {
 
-            $quantite = $request->getParsedBody()['quantite'];
-            $quantite = (int)$quantite;
-            if ($quantite === 0){
+            $quantity = $request->getParsedBody()['quantite'];
+            $quantity = (int)$quantity;
+            if ($quantity === 0){
                 return $response->withHeader('Location', $urlPrestations)->withStatus(302);
             }
 
@@ -49,10 +49,10 @@ class ProcessAddPrestaToBox extends AbstractAction
             $boxService = new BoxService();
             try {
                 $boxService->isOwner($box_token, $user['id']);
-                $boxService->addPresta($box_token, $presta_id, $quantite);
+                $boxService->addPresta($box_token, $presta_id, $quantity);
                 $url = $routeParser->urlFor('box', ['box_token' => $box_token]);
             } catch (\Exception $e) {
-                $url = $routeParser->urlFor('prestations', [], ['error' => $e->getMessage() === 'NotOwnerBox' ? 'NotOwnerBox' : 'prestaNotFound']);
+                $url = $routeParser->urlFor('prestations', [], ['error' => $e->getMessage()]);
             }
             return $response->withHeader('Location', $url)->withStatus(302);
         }

@@ -16,32 +16,36 @@
                             <h2>{{ presta['libelle'] }}</h2>
                             <h2>Prix : {{ presta['tarif'] }} €</h2>
                         </div>
-                        <div id="prestation_infos_description">
+                        <div id="prestation_infos_description" class="description-higher">
                             <p id="prestation-description">{{ presta['description'] }}</p>
                         </div>
                         <p>{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
-                        <button id="prestation_button" class="red">
-                            <a href="{{ url_for('boxRemovePrestaPostPost', { 'presta_id': presta['id'] }) }}">
-                                <span class="prestation_button-text">Supprimer la prestation</span>
-                                <img src="{{ resources['img'] }}/minus.svg" alt="remove"
-                                     class="prestation_button-icon">
-                            </a>
-                        </button>
+                        {% if isOwner %}
+                            <button id="prestation_button" class="button-margin-lower red">
+                                <a href="{{ url_for('boxRemovePresta',{ 'box_token': box_token } ,{ 'presta': presta['id'] }) }}">
+                                    <span class="prestation_button-text">Supprimer la prestation</span>
+                                    <img src="{{ resources['img'] }}/minus.svg" alt="remove"
+                                         class="prestation_button-icon">
+                                </a>
+                            </button>
+                        {% endif %}
                     </div>
                 </li>
             {% endfor %}
-            <li id="box_container_add">
-                <div id="box_container_add_image">
-                    <a href="{{ url_for('prestations', {}) }}">
-                        <img src="{{ resources['img'] }}/plus.svg" alt="{{ presta['img'] }}">
-                    </a>
-                </div>
-                <div id="box_container_add_text">
-                    <div id="box_container_add_infos">
-                        <h2>Ajouter une nouvelle prestation</h2>
+            {% if isOwner %}
+                <li id="box_container_add">
+                    <div id="box_container_add_image">
+                        <a href="{{ url_for('prestations', {}) }}">
+                            <img src="{{ resources['img'] }}/plus.svg" alt="{{ presta['img'] }}">
+                        </a>
                     </div>
-                </div>
-            </li>
+                    <div id="box_container_add_text">
+                        <div id="box_container_add_infos">
+                            <h2>Ajouter une nouvelle prestation</h2>
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

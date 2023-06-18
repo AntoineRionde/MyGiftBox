@@ -4,6 +4,7 @@ namespace gift\app\actions;
 
 use Exception;
 use gift\app\services\box\BoxService;
+use gift\app\services\prestations\PrestationsServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -43,6 +44,11 @@ class GetBoxByIdAction extends AbstractAction
         }
 
         $prestations = $boxServices->getPrestationsByBoxToken($token);
+        foreach ($prestations as $key => $value) {
+            $prestationsServices = new PrestationsServices();
+            $categorieLibelle = $prestationsServices->getCategorieById($value['cat_id']);
+            $prestations[$key]['cat_libelle'] = $categorieLibelle['libelle'];
+        }
 
         $basePath = RouteContext::fromRequest($request)->getBasePath();
         $css_dir = $basePath . "/styles";
