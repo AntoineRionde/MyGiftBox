@@ -1,5 +1,7 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-    {% include 'box.twig' with{prestations: prestations} %}
+    {% for box in boxs %}
+        {% include 'box.twig' with{prestations:prestations} %}
+    {% endfor %}
 {% endblock %}

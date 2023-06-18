@@ -39,6 +39,8 @@ class GetBoxsUserAction extends AbstractAction
         foreach ($boxs as $box) {
             $prestations[$box['id']] = $boxService->getPrestationsByBoxId($box['id']);
         }
+        var_dump($boxs);
+//        echo $userId;
         return $view->render($response, 'boxsUser.twig', ['boxs' => $boxs, 'prestations' => $prestations, 'resources' => $resources]);
 
     }
