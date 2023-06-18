@@ -22,26 +22,32 @@ class BoxService
     {
         if (!isset($data['libelle']))
         {
-            throw new BoxServiceInvalidDataException("Libelle is missing", 400);
+            throw new BoxServiceInvalidDataException("missingLibelle", 400);
         }
         $libelle = filter_var($data['libelle'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $kdo = $data['cadeau'] ?? 'off';
-        $description = filter_var($data['description'] ?? 'pas de description', FILTER_SANITIZE_SPECIAL_CHARS);
-        $statut = Box::CREATED;
+        $description = filter_var($data['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $kdo = 0;
+        if (isset($data['kdo'])) {
+            $kdo = $data['kdo'] === 'on' ? 1 : 0;
+        }
+        if (isset($data['message_kdo'])) {
+            $message_kdo = filter_var($data['message_kdo'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
         $montant = 0;
-        $message_kdo = filter_var($data['cadeau'] ? $data['message_kdo'] : '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $statut = Box::CREATED;
         $token = CsrfService::generate();
         $box = new Box();
         $box->id = Uuid::uuid4()->toString();
         $box->libelle = $libelle;
-        $box->kdo = $kdo === 'on' ? 1 : 0;
+        $box->kdo = $kdo;
         $box->description = $description;
         $box->montant = $montant;
         $box->message_kdo = $message_kdo;
         $box->token = $token;
         $box->statut = $statut;
-        $box->created_at = date_create('now')->format('Y-m-d H:i:s');
-        $box->updated_at = date_create('now')->format('Y-m-d H:i:s');
+        $box->user_id = $data['user_id'];
+        $box->created_at = date('Y-m-d H:i:s');
+        $box->updated_at = date('Y-m-d H:i:s');
         $box->save();
         $_SESSION['box_id'] = $box->id;
         return $box->toArray();
@@ -73,13 +79,11 @@ class BoxService
         return $boxs->toArray();
     }
 
-    public function isOwner(string $box_id, int $user_id) : bool
+    public function isOwner(string $box_id, int $user_id)
     {
         $box = Box::findOrFail($box_id);
-        if ($box->user_id === $user_id) {
-            return true;
-        } else {
-            return false;
+        if ($box->user_id !== $user_id) {
+            throw new BoxServiceInvalidDataException("notOwner", 400);
         }
     }
 
