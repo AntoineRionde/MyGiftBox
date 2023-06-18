@@ -42,6 +42,7 @@ class BoxService
         $box->created_at = date_create('now')->format('Y-m-d H:i:s');
         $box->updated_at = date_create('now')->format('Y-m-d H:i:s');
         $box->save();
+        $_SESSION['box_id'] = $box->id;
         return $box->toArray();
     }
 
@@ -53,7 +54,6 @@ class BoxService
 
     public function addPresta(string $box_id, string $presta_id, int $quantity)
     {
-        try {
             $box = Box::with('prestations')->findOrFail($box_id);
             $presta = Prestation::findOrFail($presta_id);
             $boxContent = $box->prestations;
@@ -64,8 +64,21 @@ class BoxService
             }
             $box->montant += $presta->tarif * $quantity;
             $box->save();
-        } catch (ModelNotFoundException $e) {
-            throw new BoxServiceInvalidDataException("Box or Prestation not found : ".$e->getMessage(), $e);
+    }
+
+    public function getBoxsIdByUserId(mixed $id)
+    {
+        $boxs = Box::where('user_id', $id)->get();
+        return $boxs->toArray();
+    }
+
+    public function isOwner(string $box_id, int $user_id)
+    {
+        $box = Box::findOrFail($box_id);
+        if ($box->user_id === $user_id) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

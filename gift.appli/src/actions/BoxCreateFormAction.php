@@ -11,6 +11,11 @@ use Slim\Views\Twig;
 
 class BoxCreateFormAction extends AbstractAction
 {
+    public function __construct()
+    {
+        if (session_status() === PHP_SESSION_NONE)
+        session_start();
+    }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): Response
     {
