@@ -23,19 +23,19 @@ class GetBoxByIdAction extends AbstractAction
         $urlLogin = $routeContext->getRouteParser()->urlFor('login');
         $urlHome = $routeContext->getRouteParser()->urlFor('home');
         $urlHomeNotOwner = $routeContext->getRouteParser()->urlFor('home', [], ['error' => 'notOwner']);
-        /*if (!isset($_SESSION['user'])) {
+        if (!isset($_SESSION['user'])) {
             return  $response->withHeader('Location', $urlLogin)->withStatus(302);
-        }*/
+        }
         if (!isset($args['box_id'])) {
             return $response->withHeader('Location', $urlHome)->withStatus(302);
         }
+        $user_id = $_SESSION['user']['id'];
 
         $id = (string) $args['box_id'];
         $boxServices = new BoxService();
-        $box = $boxServices->getBoxById($id);
 
         try {
-            $boxServices->checkOwner($box);
+            $boxServices->isOwner($id, $user_id);
         } catch (BoxServiceInvalidDataException $e) {
             return $response->withHeader('Location', $urlHomeNotOwner)->withStatus(302);
         }
