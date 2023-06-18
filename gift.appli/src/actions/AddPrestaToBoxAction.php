@@ -24,25 +24,27 @@ class AddPrestaToBoxAction extends AbstractAction
         $loginUrl = $routeParser->urlFor('login', [], ['error' => 'userNotFound']);
         $urlBoxForm = $routeParser->urlFor('boxCreateForm', [], ['error' => 'boxNotFound']);
         $urlPrestations = $routeParser->urlFor('prestations', [], ['error' => 'prestaNotFound']);
+        $urlBoxs = $routeParser->urlFor('boxs', [], ['error' => 'NotOwnerBox']);
         if (!isset($args['presta_id'])) {
-            return $response->withHeader('Location', $urlPrestations)->withStatus(405);
+            return $response->withHeader('Location', $urlPrestations)->withStatus(302);
         }
 
         if (!isset($_SESSION['user'])) {
-            return $response->withHeader('Location', $loginUrl)->withStatus(401);
+            return $response->withHeader('Location', $loginUrl)->withStatus(302);
         }
 
         if (!isset($_SESSION['box_id'])){
-            return $response->withHeader('Location', $urlBoxForm)->withStatus(401);
+            return $response->withHeader('Location', $urlBoxForm)->withStatus(302);
         }
 
         $box_id = $_SESSION['box_id'];
-
+        $user = $_SESSION['user'];
         $presta_id = $args['presta_id'];
         $boxService = new BoxService();
-        $userService = new UserService();
-        $user = $userService->
-        if ()
+
+        if (!$boxService->isOwner($box_id, $user['id'])){
+            return $response->withHeader('Location', $urlBoxs)->withStatus(302);
+        }
 
         $boxService->addPresta($box_id, $presta_id);
         $url = $routeParser->urlFor('box', ['box_id' => $box_id]);

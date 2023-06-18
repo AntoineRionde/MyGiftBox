@@ -16,6 +16,7 @@ use gift\app\actions\GetHomeAction;
 use gift\app\actions\GetPrestationByIdAction;
 use gift\app\actions\GetPrestationsAction;
 use gift\app\actions\LoginAction;
+use gift\app\actions\LogoutAction;
 use gift\app\actions\PayBoxAction;
 use gift\app\actions\PayBoxProcessAction;
 use gift\app\actions\ProcessActivationUser;
@@ -59,12 +60,11 @@ return function (App $app) {
     $app->get('/register', RegisterAction::class)->setName("register");
     $app->post('/register', ProcessRegisterAction::class)->setName("registerAction");
 
-    $app->get('/activation-token', getActivationToken::class)->setName("activationToken");
-    $app->get('/activation-user/', ProcessActivationUser::class)->setName("activationUser");
-    $app->get('/activation-user/{token}', ProcessActivationUser::class)->setName("activationUser");
-
     $app->get('/login', LoginAction::class)->setName("login");
     $app->post('/login-action', ProcessLoginAction::class)->setName("loginAction");
+
+    $app->get('/logout', LogoutAction::class)->setName("logout");
+    $app->get('/profile', GetProfile::class)->setName("profile");
 
     $app->get('/api/prestations', getApiPrestationsActions::class)->setName('prestations');
 
