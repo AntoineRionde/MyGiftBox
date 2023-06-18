@@ -5,8 +5,6 @@ namespace gift\api\actions;
 use gift\api\services\prestations\PrestationsServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
-use Slim\Routing\RouteContext;
-use Slim\Views\Twig;
 
 class getApiCategoriesAction extends AbstractAction
 {

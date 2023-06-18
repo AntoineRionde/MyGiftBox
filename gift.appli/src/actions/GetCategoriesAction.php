@@ -18,8 +18,7 @@ class GetCategoriesAction extends AbstractAction
         $css_dir = $basePath . "/styles";
         $img_dir = $basePath . "/img";
         $shared_dir = $basePath . "/shared/img";
-        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir];
-
+        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'user' => $_SESSION['user'] ?? null];
         //get a random image from a prestation of each category
         foreach ($categories as $key => $value) {
             $prestations = $prestationsServices->getPrestationsByCategorie($value['id']);

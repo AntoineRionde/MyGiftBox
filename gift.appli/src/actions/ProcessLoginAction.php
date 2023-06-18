@@ -2,6 +2,8 @@
 
 namespace gift\app\actions;
 
+use Exception;
+use gift\app\services\auth\AuthService;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -14,20 +16,18 @@ class ProcessLoginAction extends AbstractAction
     {
         $routeContext = RouteContext::fromRequest($request);
 
-
         if($request->getMethod() === 'POST'){
-            $username = $request->getParsedBody()['username'];
-            $password = $request->getParsedBody()['password'];
+            $email = filter_var($request->getParsedBody()['email'], FILTER_SANITIZE_EMAIL);
+            $password = htmlspecialchars($request->getParsedBody()['password']);
         }
 
-        $userService = new UserService();
+        $authService = new AuthService();
 
         try {
-            $userService::authenticate($username, $password);
+            $authService->authenticate($email, $password);
             $url = $routeContext->getRouteParser()->urlFor('home');
-        }catch (\Exception $e) {
-            //Afficher message d'erreur
-            $url = $routeContext->getRouteParser()->urlFor('login');
+        }catch (Exception $e) {
+            $url = $routeContext->getRouteParser()->urlFor('login', [], ['error' => 'wrong email or password']);
         }
 
         return $response->withHeader('Location', $url)->withStatus(302);

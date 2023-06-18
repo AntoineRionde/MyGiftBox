@@ -1,11 +1,47 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-    <h1>{{ box['libelle'] }}</h1>
-    <div>
-        <h2>Description</h2>
-        <p>{{ presta['description'] }}</p>
-        <h2>Url</h2>
-        <p>{{ presta['montant'] }}</p>
+    <div id="container" class="center">
+        <ul id="box_wrapper">
+            {% for presta in prestations %}
+                <li id="prestation_wrapper">
+                    <div id="prestation_wrapper_image">
+                        <a href="{{ url_for('prestation', { 'id': presta['id'] }) }}">
+                            <img src="{{ resources['shared'] }}/{{ presta['img'] }}" alt="{{ presta['img'] }}"
+                                 id="prestation_image">
+                        </a>
+                    </div>
+                    <div id="prestation_wrapper_text">
+                        <div id="prestation_infos_wrapper">
+                            <h2>{{ presta['libelle'] }}</h2>
+                            <h2>Prix : {{ presta['tarif'] }} €</h2>
+                        </div>
+                        <div id="prestation_infos_description">
+                            <p id="prestation-description">{{ presta['description'] }}</p>
+                        </div>
+                        <p>{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
+                        <button id="prestation_button">
+                            <a href="{{ url_for('boxAddPresta', { 'presta_id': presta['id'] }) }}">
+                                <span class="prestation_button-text">Ajouter au coffret</span>
+                                <img src="{{ resources['img'] }}/box-open.svg" alt="panier"
+                                     class="prestation_button-icon">
+                            </a>
+                        </button>
+                    </div>
+                </li>
+            {% endfor %}
+            <li id="box_container_add">
+                <div id="box_container_add_image">
+                    <a href="{{ url_for('prestations', {}) }}">
+                        <img src="{{ resources['img'] }}/plus.svg" alt="{{ presta['img'] }}">
+                    </a>
+                </div>
+                <div id="box_container_add_text">
+                    <div id="box_container_add_infos">
+                        <h2>Ajouter une nouvelle prestation</h2>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 {% endblock %}

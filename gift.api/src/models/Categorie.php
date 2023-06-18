@@ -2,7 +2,6 @@
 
 namespace gift\api\models;
 
-use gift\api\models\Prestation;
 use Illuminate\Database\Eloquent\Model;
 
 class Categorie extends Model

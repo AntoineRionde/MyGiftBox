@@ -17,9 +17,23 @@ services:
       - ./gift.appli/tests:/var/www/tests
     networks:
       - gift.net
-    depends_on:
-      - sql
+#    depends_on:
+#      - sql
 
+  php-api:
+    image: canals/php:latest
+    environment:
+      - http_proxy=http://www-cache.iutnc.univ-lorraine.fr:3128
+      - https_proxy=http://www-cache.iutnc.univ-lorraine.fr:3128
+    ports:
+      - "44444:80"
+    volumes:
+      - ./gift.api/public:/var/www/html
+      - ./gift.api/src:/var/www/src
+    networks:
+      - gift.net
+#    depends_on:
+#      - sql
   sql:
     image: mariadb:latest
     environment:

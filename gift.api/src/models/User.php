@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\models;
+namespace gift\api\models;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
@@ -14,6 +14,6 @@ class User extends Model
 
     public function box()
     {
-        return $this->hasMany('gift\app\models\Box');
+        return $this->hasMany('gift\api\models\Box');
     }
 }

@@ -2,6 +2,20 @@
 
 {% block content %}
     <div id="container" class="center">
+        <div class="flex-row">
+            <button id="return">
+                <a href="{{ url_for('prestations', {}, { 'ordre': 'asc'}) }}">
+                    <img src="{{ resources['img'] }}/arrow-up.svg" alt="arrow-up" id="return-icon"/>
+                    <h3 id="return-text">Tri croissant</h3>
+                </a>
+            </button>
+            <button id="return">
+                <a href="{{ url_for('prestations', {}, { 'ordre': 'desc'}) }}">
+                    <img src="{{ resources['img'] }}/arrow-down.svg" alt="arrow-down" id="return-icon"/>
+                    <h3 id="return-text">Tri décroissant</h3>
+                </a>
+            </button>
+        </div>
         <ul id="prestations_wrapper">
             {% for presta in prestations %}
                 <li id="prestation_wrapper">
@@ -20,6 +34,9 @@
                             <p id="prestation-description">{{ presta['description'] }}</p>
                         </div>
                         <p>{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
+                        <label>
+                            <input type="number" name="quantite" min="0" class="form_number">
+                        </label>
                         <button id="prestation_button">
                             <a href="{{ url_for('boxAddPresta', { 'presta_id': presta['id'] }) }}">
                                 <span class="prestation_button-text">Ajouter au coffret</span>

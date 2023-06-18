@@ -2,9 +2,8 @@
 
 namespace gift\api\services\prestations;
 
-use gift\app\models\Categorie;
-use gift\app\models\Prestation;
-use gift\app\services\utils\Eloquent;
+use gift\api\models\Categorie;
+use gift\api\models\Prestation;
 use Throwable;
 
 class PrestationsServices

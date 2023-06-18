@@ -2,12 +2,14 @@
 
 {% block content %}
     <div id="container">
+        <div class="flex-row">
         <button id="return">
             <a href="{{ url_for('categories') }}">
                 <img src="{{ resources['img'] }}/arrow-left.svg" alt="arrow-left" id="return-icon"/>
                 <h3 id="return-text">Go back</h3>
             </a>
         </button>
+        </div>
         <h1 id="title">{{ cat['libelle'] }}</h1>
         <hr/>
         <h2 id="categorie_description">Description : {{ cat['description'] }}</h2>

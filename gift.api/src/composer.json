@@ -12,10 +12,7 @@
   },
   "autoload": {
     "psr-4": {
-      "gift\\app\\": "./",
-      "gift\\test\\": "../tests/",
-      "gift\\api\\": "../../gift.api/src/"
-
+      "gift\\api\\": "./"
     }
   }
 }

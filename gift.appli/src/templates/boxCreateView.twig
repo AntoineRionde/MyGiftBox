@@ -1,18 +1,29 @@
 {% extends "squelette.twig" %}
 
 {% block content %}
-<form method="post" action="{{ url_for('boxCreatePost') }}">
-    <label for="libelle"> libelle</label>
-    <input type="text" id="box_libelle_input" name="libelle">
-    <label for="description">description</label>
-    <input type="text" id="box_desc_input" name="description">
-    <label for="cadeau">Kdo ? : </label>
-    <input type="checkbox" id="box_kdo_input" name="cadeau" >
-    <label for="message_kdo">message kdo</label>
-    <input type="text" id="box_msg_input" name="message_kdo">
-    <label for="url">url</label>
-    <input type="text" id="box_url_input" name="url">
-    <input type="hidden" name="token" value="{{ token }}">
-    <button type="submit">OK</button>
-</form>
+    <div id="container" class="center">
+        <form action="{{ url_for('boxCreatePost') }}" method="POST" id="form">
+            <div class="form_infos">
+                <label for="box_libelle_input"> libelle</label>
+                <input type="text" id="box_libelle_input" name="libelle" class="form_input">
+            </div>
+            <div class="form_infos">
+                <label for="box_desc_input">description</label>
+                <input type="text" id="box_desc_input" name="description" class="form_input">
+            </div>
+            <div class="form_infos">
+                <label for="box_kdo_input">En faire un cadeau </label>
+                <input type="checkbox" id="box_kdo_input" name="kdo">
+            </div>
+            <div class="form_infos">
+                <label for="box_msg_input">Message cadeau</label>
+                <input type="text" id="box_msg_input" name="message_kdo" class="form_input">
+            </div>
+            <input type="hidden" name="token" value="{{ token }}">
+            <div class="form_infos">
+                <span></span>
+                <button type="submit" class="form_button green text-darken">Confirmer</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

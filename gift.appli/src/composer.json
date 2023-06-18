@@ -15,7 +15,6 @@
       "gift\\app\\": "./",
       "gift\\test\\": "../tests/",
       "gift\\api\\": "../../gift.api/src/"
-
     }
   }
 }

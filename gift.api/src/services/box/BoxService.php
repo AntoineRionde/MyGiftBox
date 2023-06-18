@@ -3,7 +3,6 @@ namespace gift\api\services\box;
 use gift\api\models\Box;
 use gift\api\models\Prestation;
 use gift\api\services\utils\CsrfService;
-use gift\api\services\utils\Eloquent;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Ramsey\Uuid\Uuid;
 
@@ -17,7 +16,7 @@ class BoxService
         return $box;
     }
 
-    public function createEmptyBox(array $data)
+    public function createEmptyBox(array $data) : array
     {
         if (!isset($data['libelle']))
         {

@@ -12,6 +12,10 @@ use Slim\Routing\RouteContext;
 
 class AddPrestaToBoxAction extends AbstractAction
 {
+    public function __construct()
+    {
+        session_start();
+    }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): Response
     {

@@ -8,6 +8,7 @@ use gift\app\actions\BoxCreateProcessAction;
 use gift\app\actions\CreateCategorieAction;
 use gift\api\actions\getApiCategoriesAction;
 use gift\api\actions\getApiPrestationsActions;
+use gift\app\actions\GetActivationToken;
 use gift\app\actions\GetBoxByIdAction;
 use gift\app\actions\GetCategorieByIdAction;
 use gift\app\actions\GetCategoriesAction;
@@ -15,6 +16,7 @@ use gift\app\actions\GetHomeAction;
 use gift\app\actions\GetPrestationByIdAction;
 use gift\app\actions\GetPrestationsAction;
 use gift\app\actions\LoginAction;
+use gift\app\actions\ProcessActivationUser;
 use gift\app\actions\ProcessLoginAction;
 use gift\app\actions\ProcessRegisterAction;
 use gift\app\actions\RegisterAction;
@@ -40,19 +42,23 @@ return function (App $app) {
 
     $app->post('/prestation/{id}/update', UpdatePrestationByIdAction::class)->setName('updatePrestationPost');
 
-    $app->get('/box/create[/]', BoxCreateFormAction::class)->setName('boxCreateForm');
+    $app->get('/box/create', BoxCreateFormAction::class)->setName('boxCreateForm');
 
-    $app->post('/box/create[/]', BoxCreateProcessAction::class)->setName('boxCreatePost');
+    $app->post('/box/create', BoxCreateProcessAction::class)->setName('boxCreatePost');
 
-    $app->get('/box/{user_id}[/]', GetBoxByIdAction::class)->setName('box');
+    $app->get('/box/{box_id}', GetBoxByIdAction::class)->setName('box');
 
-    $app->get('/box/add/{presta_id}[/]', AddPrestaToBoxAction::class)->setName('boxAddPresta');
+    $app->get('/box/add/{presta_id}', AddPrestaToBoxAction::class)->setName('boxAddPresta');
 
-    $app->get('/register[/]', RegisterAction::class)->setName("register");
-    $app->post('/register-action[/]', ProcessRegisterAction::class)->setName("registerAction");
+    $app->get('/register', RegisterAction::class)->setName("register");
+    $app->post('/register', ProcessRegisterAction::class)->setName("registerAction");
 
-    $app->get('/login[/]', LoginAction::class)->setName("login");
-    $app->post('/login-action[/]', ProcessLoginAction::class)->setName("loginAction");
+    $app->get('/activation-token', getActivationToken::class)->setName("activationToken");
+    $app->get('/activation-user/', ProcessActivationUser::class)->setName("activationUser");
+    $app->get('/activation-user/{token}', ProcessActivationUser::class)->setName("activationUser");
+
+    $app->get('/login', LoginAction::class)->setName("login");
+    $app->post('/login-action', ProcessLoginAction::class)->setName("loginAction");
 
     $app->get('/api/prestations', getApiPrestationsActions::class)->setName('prestations');
 

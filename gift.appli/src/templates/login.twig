@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>login</title>
-    <link rel="stylesheet" href="{{ resources['css'] }}/main.css";>
-</head>
 
-<header>
-    <div class="nom">
-        <h1>MyGiftBox : Login</h1>
+{% extends "squelette.twig" %}
+
+{% block content %}
+    <div id="container" class="center">
+        <form action="{{ url_for('loginAction') }}" method="POST" id="form">
+            <div class="form_infos">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" class="form_input">
+            </div>
+
+            <div class="form_infos">
+                <label for="password">Mot de passe :</label>
+                <input type="password" name="password" id="password" class="form_input">
+            </div>
+            <div class="form_infos">
+                <a href="{{ url_for('login') }}">
+                    <button type="button" class="form_button red text-darken">Nouveau ?</button>
+                </a>
+                <button type="submit" class="form_button green text-darken">Se connecter</button>
+            </div>
+        </form>
     </div>
-</header>
-<body>
-<form action="{{ url_for('loginAction') }}" method="POST">
-    <label for="username">Nom d'utilisateur :</label>
-    <input type="text" name="username" id="username">
-
-    <label for="password">Mot de passe :</label>
-    <input type="password" name="password" id="password">
-
-    <input type="submit" value="Se connecter">
-</form>
-
-{% include 'footer.twig' %}
-
-</body>
-</html>
+{% endblock %}
