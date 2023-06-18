@@ -18,7 +18,7 @@
         </div>
         <ul id="prestations_wrapper">
             {% for presta in prestations %}
-                <li id="prestation_wrapper">
+                <form id="prestation_wrapper" action="{{ url_for('boxAddPrestaPostPost', { 'presta_id': presta['id'] }) }}" method="POST">
                     <div id="prestation_wrapper_image">
                         <a href="{{ url_for('prestation', { 'id': presta['id'] }) }}">
                             <img src="{{ resources['shared'] }}/{{ presta['img'] }}" alt="{{ presta['img'] }}"
@@ -37,15 +37,13 @@
                         <label>
                             <input type="number" name="quantite" min="0" class="form_number">
                         </label>
-                        <button id="prestation_button">
-                            <a href="{{ url_for('boxAddPresta', { 'presta_id': presta['id'] }) }}">
-                                <span class="prestation_button-text">Ajouter au coffret</span>
-                                <img src="{{ resources['img'] }}/box-open.svg" alt="panier"
-                                     class="prestation_button-icon">
-                            </a>
+                        <button id="prestation_button" type="submit">
+                            <span class="prestation_button-text">Ajouter au coffret</span>
+                            <img src="{{ resources['img'] }}/box-open.svg" alt="panier"
+                                 class="prestation_button-icon">
                         </button>
                     </div>
-                </li>
+                </form>
             {% endfor %}
         </ul>
     </div>

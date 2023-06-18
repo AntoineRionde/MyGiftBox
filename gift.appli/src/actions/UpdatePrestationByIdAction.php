@@ -31,7 +31,7 @@ class UpdatePrestationByIdAction extends AbstractAction
 <html>
     <head>
         <title>Modifier une prestation - My Gift Box</title>
-        <link rel="stylesheet" href="../../styles/home.css">
+        <link rel="stylesheet" href="../../styles/main.css">
     </head>
     <body>
         <h1>Modifier une prestation</h1>

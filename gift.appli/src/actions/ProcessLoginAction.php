@@ -22,7 +22,7 @@ class ProcessLoginAction extends AbstractAction
         $routeContext = RouteContext::fromRequest($request);
         $urlLogin = $routeContext->getRouteParser()->urlFor('login');
 
-        if($request->getMethod() === 'POST') {
+        if ($request->getMethod() === 'POST') {
             $email = filter_var($request->getParsedBody()['email'], FILTER_SANITIZE_EMAIL);
             $password = htmlspecialchars($request->getParsedBody()['password']);
 

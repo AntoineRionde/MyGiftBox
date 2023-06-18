@@ -20,25 +20,13 @@
                             <p id="prestation-description">{{ presta['description'] }}</p>
                         </div>
                         <p>{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
-                        <button id="prestation_button">
-                            <a href="{{ url_for('boxAddPresta', { 'presta_id': presta['id'] }) }}">
-                                <span class="prestation_button-text">Ajouter au coffret</span>
-                                <img src="{{ resources['img'] }}/box-open.svg" alt="panier"
+                        <button id="prestation_button" class="red">
+                            <a href="{{ url_for('removePresta', { 'presta_id': presta['id'] }) }}">
+                                <span class="prestation_button-text">Supprimer la prestation</span>
+                                <img src="{{ resources['img'] }}/minus.svg" alt="remove"
                                      class="prestation_button-icon">
                             </a>
                         </button>
-                    </div>
-                </li>
-                <li id="box_container_remove">
-                    <div id="box_container_remove_image">
-                        <a href="{{ url_for('prestations', {}) }}">
-                            <img src="{{ resources['img'] }}/minus.svg" alt="{{ presta['img'] }}">
-                        </a>
-                    </div>
-                    <div id="box_container_remove_text">
-                        <div id="box_container_remove_infos">
-                            <h2>Supprimer la prestation</h2>
-                        </div>
                     </div>
                 </li>
             {% endfor %}

@@ -2,9 +2,10 @@
 declare(strict_types=1);
 
 
-use gift\app\actions\AddPrestaToBoxAction;
+use gift\app\actions\DeleteBoxPrestaAction;
+use gift\app\actions\ProcessAddPrestaToBox;
 use gift\app\actions\BoxCreateFormAction;
-use gift\app\actions\BoxCreateProcessAction;
+use gift\app\actions\ProcessBoxCreateAction;
 use gift\app\actions\CreateCategorieAction;
 use gift\api\actions\getApiCategoriesAction;
 use gift\api\actions\getApiPrestationsActions;
@@ -46,16 +47,15 @@ return function (App $app) {
     $app->post('/prestation/{id}/update', UpdatePrestationByIdAction::class)->setName('updatePrestationPost');
 
     $app->get('/box/create', BoxCreateFormAction::class)->setName('boxCreateForm');
-
-    $app->post('/box/create', BoxCreateProcessAction::class)->setName('boxCreatePost');
-
+    $app->post('/box/create', ProcessBoxCreateAction::class)->setName('boxCreatePost');
+    
     $app->get('/box/pay[/]', PayBoxAction::class)->setName('payBoxForm');
-
     $app->post('/box/pay[/]', PayBoxProcessAction::class)->setName('payBoxPost');
 
     $app->get('/box/{box_id}', GetBoxByIdAction::class)->setName('box');
+    $app->post('/box/add/{presta_id}', ProcessAddPrestaToBox::class)->setName('boxAddPrestaPostPost');
 
-    $app->get('/box/add/{presta_id}', AddPrestaToBoxAction::class)->setName('boxAddPresta');
+    $app->post('/box/remove/{presta_id}', DeleteBoxPrestaAction::class)->setName('boxRemovePrestaPostPost');
 
     $app->get('/boxs[/]', GetBoxsUserAction::class)->setName('boxsUser');
 
