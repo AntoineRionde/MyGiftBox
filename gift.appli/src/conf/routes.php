@@ -66,9 +66,4 @@ return function (App $app) {
 
     $app->get('/logout', LogoutAction::class)->setName("logout");
     $app->get('/profile', GetProfile::class)->setName("profile");
-
-    $app->get('/api/prestations', getApiPrestationsActions::class)->setName('prestations');
-
-    $app->get('/api/categories', getApiCategoriesAction::class)->setName('categories');
-
 };

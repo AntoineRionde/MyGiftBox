@@ -15,11 +15,21 @@ class CreateCategorieAction extends AbstractAction
     public function __construct()
     {
         if (session_status() === PHP_SESSION_NONE)
-        session_start();
+            session_start();
     }
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
+        $routeContext = RouteContext::fromRequest($request);
+        $urlLogin = $routeContext->getRouteParser()->urlFor('login');
+        $urlCategories = $routeContext->getRouteParser()->urlFor('categories');
+        if ($request->getMethod() !== 'POST') {
+            return $response->withHeader('Location', $urlCategories)->withStatus(302);
+        }
+        if (!isset($_SESSION['user'])) {
+            return $response->withHeader('Location', $urlLogin)->withStatus(302);
+        }
+
         $prestationsServices = new PrestationsServices();
         $categorie = $prestationsServices->getCategories();
         $routeContext = RouteContext::fromRequest($request);
@@ -28,20 +38,17 @@ class CreateCategorieAction extends AbstractAction
         $categorie['url'] = $url;
         $view = Twig::fromRequest($request);
 
-        if ($request->getMethod() === 'POST') {
-            $data = $request->getParsedBody();
-            $data['libelle'] = filter_var($data['libelle'], FILTER_SANITIZE_STRING);
-            $data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
-            try {
-                CsrfService::check($data['token']);
-            } catch (\Exception $e) {
-                throw new HttpBadRequestException($request, 'csrf token error');
-            }
-            $prestationsServices->createCategorie($data);
-            return $response->withStatus(302)->withHeader('Location', $url);
-        } else {
-            $token = CsrfService::generate();
-            return $view->render($response, 'create_categorie.twig', ['categories' => $categorie, 'token' => $token]);
+
+        $data = $request->getParsedBody();
+        $data['libelle'] = filter_var($data['libelle'], FILTER_SANITIZE_STRING);
+        $data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
+        try {
+            CsrfService::check($data['token']);
+        } catch (\Exception $e) {
+            throw new HttpBadRequestException($request, 'csrf token error');
         }
+        $prestationsServices->createCategorie($data);
+        return $response->withStatus(302)->withHeader('Location', $url);
+
     }
 }

@@ -92,7 +92,7 @@ class BoxService
         return $boxs->toArray();
     }
 
-    public function isOwner(string $token, int $user_id) : void
+    public function isOwner(string $token, int $user_id = -1) : void
     {
         $box = Box::where('token', $token)->first();
         if (!$box) {

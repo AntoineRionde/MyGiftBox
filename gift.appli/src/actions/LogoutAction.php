@@ -20,10 +20,9 @@ class LogoutAction extends AbstractAction
         if (isset($_SESSION['user'])) {
             unset($_SESSION['user']);
         }
-        //go back to the home
+
         $routeContext = RouteContext::fromRequest($request);
         $url = $routeContext->getRouteParser()->urlFor('home');
         return $response->withHeader('Location', $url)->withStatus(302);
-
     }
 }

@@ -20,7 +20,7 @@ class RegisterAction extends AbstractAction
         $css_dir = $basePath . "/styles";
         $img_dir = $basePath . "/img";
         $shared_dir = $basePath . "/shared/img";
-        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'user' => $_SESSION['user'] ?? null];        $view = Twig::fromRequest($request);
+        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'isConnected' => isset($_SESSION['user'])];        $view = Twig::fromRequest($request);
         $view->render($response, 'register.twig', ['resources' => $resources]);
         return $response;
     }

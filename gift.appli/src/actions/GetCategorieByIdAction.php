@@ -19,6 +19,8 @@ class GetCategorieByIdAction extends AbstractAction
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
+        $routeContext = RouteContext::fromRequest($request);
+
         if (!isset($args['id'])) {
             throw new PrestationsServicesException("Categorie id is null", 400, null);
         }
@@ -32,7 +34,7 @@ class GetCategorieByIdAction extends AbstractAction
         $css_dir = $basePath . "/styles";
         $img_dir = $basePath . "/img";
         $shared_dir = $basePath . "/shared/img";
-        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'user' => $_SESSION['user'] ?? null];
+        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'isConnected' => isset($_SESSION['user'])];
         $view = Twig::fromRequest($request);
         $data = [
             'cat' => $cat,
@@ -40,19 +42,5 @@ class GetCategorieByIdAction extends AbstractAction
             'resources' => $resources
         ];
         return $view->render($response, 'categorie.twig', $data);
-    }
-
-    function comparePrestationsByPrice($prestation1, $prestation2): int
-    {
-        $tarif1 = (float) $prestation1['tarif'];
-        $tarif2 = (float) $prestation2['tarif'];
-
-        if ($tarif1 == $tarif2) {
-            return 0;
-        } elseif ($tarif1 < $tarif2) {
-            return -1;
-        } else {
-            return 1;
-        }
     }
 }

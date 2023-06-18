@@ -20,7 +20,12 @@ class ProcessBoxCreateAction extends AbstractAction
     {
         $routeContext = RouteContext::fromRequest($request);
         $urlLogin = $routeContext->getRouteParser()->urlFor('login');
+        $urlForm = $routeContext->getRouteParser()->urlFor('boxCreateForm');
 
+
+        if ($request->getMethod() !== 'POST') {
+            return  $response->withHeader('Location', $urlForm)->withStatus(302);
+        }
         if (!isset($_SESSION['user'])) {
             return  $response->withHeader('Location', $urlLogin)->withStatus(302);
         }

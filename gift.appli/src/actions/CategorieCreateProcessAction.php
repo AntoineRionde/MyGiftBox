@@ -20,13 +20,24 @@ class CategorieCreateProcessAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): Response
     {
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $urlLogin = $routeParser->urlFor('home', [], ['error' => 'BadUri']);
+        if ($request->getMethod() !== 'POST') {
+            return  $response->withHeader('Location', $urlLogin)->withStatus(302);
+        }
+
+        if (!isset($_SESSION['user'])) {
+            return $response->withHeader('Location', $urlLogin)->withStatus(302);
+        }
+
         $post_data = $request->getParsedBody();
-        $token = $post_data['token'] ?? null;
+        $token = $post_data['token'];
 
         try {
             CsrfService::check($token);
         } catch (\Exception $e) {
-            throw new HttpBadRequestException($request, 'csrf token error');
+            $url = $routeParser->urlFor('categories', [], ['error' => $e->getMessage()]);
+            return $response->withHeader('Location', $url)->withStatus(302);
         }
 
         $categ_data = [
@@ -38,7 +49,6 @@ class CategorieCreateProcessAction extends AbstractAction
         $prestationService = new PrestationsServices();
         $prestationService->createCategorie($categ_data);
 
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $url = $routeParser->urlFor('categories');
         return $response->withHeader('Location', $url)->withStatus(302);
     }

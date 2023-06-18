@@ -19,14 +19,16 @@
                         <div id="prestation_infos_description" class="description-higher">
                             <p id="prestation-description">{{ presta['description'] }}</p>
                         </div>
-                        <p>{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
-                        <button id="prestation_button" class="red">
-                            <a href="{{ url_for('boxRemovePrestaPostPost', { 'presta_id': presta['id'] }) }}">
-                                <span class="prestation_button-text">Supprimer la prestation</span>
-                                <img src="{{ resources['img'] }}/minus.svg" alt="remove"
-                                     class="prestation_button-icon">
-                            </a>
-                        </button>
+                        <p class="margin-lower">{{ presta['cat_libelle'] }} ({{ presta['cat_id'] }}) </p>
+                        {% if isOwner %}
+                            <button id="prestation_button" class="margin-lower red">
+                                <a href="{{ url_for('boxRemovePresta',{ 'box_token': box_token } ,{ 'presta': presta['id'] }) }}">
+                                    <span class="prestation_button-text">Supprimer la prestation</span>
+                                    <img src="{{ resources['img'] }}/minus.svg" alt="remove"
+                                         class="prestation_button-icon">
+                                </a>
+                            </button>
+                        {% endif %}
                     </div>
                 </li>
             {% endfor %}
