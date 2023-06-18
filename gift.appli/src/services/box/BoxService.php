@@ -143,5 +143,12 @@ class BoxService
         return $box->toArray();
     }
 
-
+    public function getBoxById(int $id) : array
+    {
+        $box = Box::find($id);
+        if (!$box) {
+            throw new BoxServiceNotFoundException("boxNotFound", 400);
+        }
+        return $box->toArray();
+    }
 }
