@@ -2,6 +2,7 @@
 
 namespace gift\app\actions;
 
+use Exception;
 use gift\app\services\auth\AuthService;
 use gift\app\services\user\UserService;
 use Slim\Psr7\Request;
@@ -20,9 +21,6 @@ class ProcessRegisterAction extends AbstractAction
     {
         $routeContext = RouteContext::fromRequest($request);
         $urlRegister = $routeContext->getRouteParser()->urlFor('register');
-        $urlUserAlreadyExist = $routeContext->getRouteParser()->urlFor('register', [], ['error' => 'userAlreadyExist']);
-        $urlPasswordNotEnoughStrong = $routeContext->getRouteParser()->urlFor('register', [],['error' => 'passwordNotEnoughStrong']);
-        $urlPasswordNotMatch = $routeContext->getRouteParser()->urlFor('register', [],['error' => 'passwordNotMatch']);
 
 
         if ($request->getMethod() === 'POST') {
@@ -30,21 +28,13 @@ class ProcessRegisterAction extends AbstractAction
             $password = htmlspecialchars($request->getParsedBody()['password']);
             $confirm_password = htmlspecialchars($request->getParsedBody()['confirm_password']);
 
-            $authService = new AuthService();
-            $isRegistered = $authService->register($email, $password, $confirm_password);
-
-            if ($isRegistered === 1) {
-                $urlLogin = $routeContext->getRouteParser()->urlFor('login');
-                $url = $response->withHeader('location', $urlLogin)->withStatus(302);
-            } else if ($isRegistered === 0) {
-                $url =  $response->withHeader('location', $urlUserAlreadyExist)->withStatus(302);
-            } else if ($isRegistered === -1) {
-                $url = $response->withHeader('location', $urlPasswordNotEnoughStrong)->withStatus(302);
-            } else {
-                $url = $response->withHeader('location', $urlPasswordNotMatch)->withStatus(302);
+            try {
+                $authService = new AuthService();
+                $authService->register($email, $password, $confirm_password);
+            } catch (Exception $e) {
+                $urlRegister = $routeContext->getRouteParser()->urlFor('register', [], ['error' => $e->getMessage()]);
             }
-
-            return $url;
+            return $response->withHeader('Location', $urlRegister)->withStatus(302);
         }
         return $response->withHeader('Location', $urlRegister)->withStatus(302);
     }

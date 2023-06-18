@@ -67,13 +67,13 @@ class BoxService
             $box->save();
     }
 
-    public function getBoxsIdByUserId(mixed $id)
+    public function getBoxsIdByUserId(int $id) : array
     {
         $boxs = Box::where('user_id', $id)->get();
         return $boxs->toArray();
     }
 
-    public function isOwner(string $box_id, int $user_id)
+    public function isOwner(string $box_id, int $user_id) : bool
     {
         $box = Box::findOrFail($box_id);
         if ($box->user_id === $user_id) {
