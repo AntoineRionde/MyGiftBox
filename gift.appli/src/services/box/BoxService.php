@@ -1,10 +1,10 @@
 <?php
+
 namespace gift\app\services\box;
+
 use gift\app\models\Box;
 use gift\app\models\Prestation;
 use gift\app\services\utils\CsrfService;
-use gift\app\services\utils\Eloquent;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PHPUnit\Exception;
 use Ramsey\Uuid\Uuid;
 
@@ -18,10 +18,9 @@ class BoxService
         return $box;
     }
 
-    public function createEmptyBox(array $data) : array
+    public function createEmptyBox(array $data): array
     {
-        if (!isset($data['libelle']))
-        {
+        if (!isset($data['libelle'])) {
             throw new BoxServiceInvalidDataException("missingLibelle", 400);
         }
         $libelle = filter_var($data['libelle'], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -53,7 +52,7 @@ class BoxService
         return $box->toArray();
     }
 
-    public function getBoxById(string $id)
+    public function getBoxById(string $id): array
     {
         $box = Box::with('prestations')->findOrFail($id);
         return $box->toArray();
@@ -61,19 +60,21 @@ class BoxService
 
     public function addPresta(string $box_id, string $presta_id, int $quantity)
     {
-            $box = Box::with('prestations')->findOrFail($box_id);
-            $presta = Prestation::findOrFail($presta_id);
-            $boxContent = $box->prestations;
-            if ($boxContent->contains($presta)) {
-                $box->prestations()->find($presta_id)->pivot->quantite += $quantity;
-            } else {
-                $box->prestations()->attach($presta_id, ['quantite' => $quantity]);
-            }
-            $box->montant += $presta->tarif * $quantity;
-            $box->save();
+        $box = Box::findOrFail($box_id);
+        $presta = Prestation::findOrFail($presta_id);
+
+        $boxContent = $box->prestations()->get();
+
+        if ($boxContent->contains($presta_id)) {
+            $box->prestations()->updateExistingPivot($presta_id, ['quantity' => $quantity]);
+        } else {
+            $box->prestations()->attach($presta_id, ['quantity' => $quantity]);
+        }
+        $box->montant += $presta->tarif * $quantity;
+        $box->save();
     }
 
-    public function getBoxsIdByUserId(int $id) : array
+    public function getBoxsIdByUserId(int $id): array
     {
         $boxs = Box::where('user_id', $id)->get();
         return $boxs->toArray();

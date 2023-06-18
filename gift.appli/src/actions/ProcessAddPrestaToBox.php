@@ -21,11 +21,13 @@ class ProcessAddPrestaToBox extends AbstractAction
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $loginUrl = $routeParser->urlFor('login', [], ['error' => 'userNotConnected']);
         $urlBoxForm = $routeParser->urlFor('boxCreateForm', [], ['error' => 'boxNotFound']);
-        $urlPrestations = $routeParser->urlFor('prestations', [], ['error' => 'prestaNotFound']);
+        $urlPrestations = $routeParser->urlFor('prestations', [], ['error' => 'errorInAddPrestaToBox']);
 
         if ($request->getMethod() === 'POST') {
+
             $quantite = $request->getParsedBody()['quantite'];
-            if ($quantite === 0 || $quantite === null){
+            $quantite = (int)$quantite;
+            if ($quantite === 0){
                 return $response->withHeader('Location', $urlPrestations)->withStatus(302);
             }
 
@@ -45,14 +47,14 @@ class ProcessAddPrestaToBox extends AbstractAction
             $user = $_SESSION['user'];
             $presta_id = $args['presta_id'];
             $boxService = new BoxService();
-
             try {
                 $boxService->isOwner($box_id, $user['id']);
-                $boxService->addPresta($box_id, $presta_id,);
+                $boxService->addPresta($box_id, $presta_id, $quantite);
                 $url = $routeParser->urlFor('box', ['box_id' => $box_id]);
             } catch (\Exception $e) {
                 $url = $routeParser->urlFor('prestations', [], ['error' => $e->getMessage() === 'NotOwnerBox' ? 'NotOwnerBox' : 'prestaNotFound']);
             }
+            return $response->withHeader('Location', $url)->withStatus(302);
         }
         $url = $routeParser->urlFor('prestations', [], ['error' => 'postError']);
 
