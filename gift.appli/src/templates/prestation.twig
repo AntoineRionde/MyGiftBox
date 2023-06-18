@@ -15,7 +15,7 @@
             <h1 id="title">{{ presta['libelle'] }}</h1>
             <hr/>
 
-            <form id="prestation_content" action="{{ url_for('boxAddPrestaPostPost', { 'presta_id': presta['id'] }) }}" method="POST">
+            <form id="prestation_content" action="{{ url_for('boxAddPrestaPost', { 'presta_id': presta['id'] }) }}" method="POST">
                 <div id="prestation">
                     <img src="{{ resources['shared'] }}/{{ presta['img'] }}" alt="{{ presta['img'] }}"
                          id="prestation-image">
