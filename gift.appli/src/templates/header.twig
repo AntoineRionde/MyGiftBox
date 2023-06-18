@@ -4,9 +4,9 @@
     </div>
         <nav>
             {% if resources['user'] %}
-                <a href="{{ url_for('boxDisplay') }}" id="header_nav_box" class="green"><h2 class="header_nav-item text-darken">Afficher mes coffrets</h2></a>
+{#                <a href="{{ url_for('boxs') }}" id="header_nav_box" class="green"><h2 class="header_nav-item text-darken">Afficher mes coffrets</h2></a>#}
                 <a href="{{ url_for('logout') }}"><h2 class="header_nav-item">Se déconnecter</h2></a>
-                <a href="{{ url_for('profil') }}"><h2 class="header_nav-item">Mon profil</h2></a>
+                <a href="{{ url_for('profile') }}"><h2 class="header_nav-item">Mon profil</h2></a>
             {% else %}
                 <a href="{{ url_for('boxCreateForm') }}" id="header_nav_box" class="red"><h2 class="header_nav-item text-darken">Composer mon coffret</h2></a>
             {% endif %}
