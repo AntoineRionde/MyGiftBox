@@ -8,7 +8,7 @@ use gift\app\actions\BoxCreateFormAction;
 use gift\app\actions\ProcessBoxCreateAction;
 use gift\app\actions\CreateCategorieAction;
 use gift\api\actions\getApiCategoriesAction;
-use gift\api\actions\getApiPrestationsActions;
+use gift\api\actions\GetApiPrestationsAction;
 use gift\app\actions\GetBoxByIdAction;
 use gift\app\actions\GetBoxsUserAction;
 use gift\app\actions\GetCategorieByIdAction;

@@ -9,7 +9,7 @@ class Box extends Model
     public $timestamps = false;
     public $incrementing = false;
     public $keyType = 'string';
-    public $fillable = ['id', 'libelle', 'description', 'kdo', 'montant', 'message_kdo', 'token', 'statut', 'user_id', 'created_at', 'updated_at'];
+    public $fillable = ['id', 'token', 'libelle', 'description', 'montant', 'kdo', 'message_kdo', 'statut', 'created_at', 'created_at', 'updated_at', 'user_id'];
 
     CONST CREATED = 1;
     CONST VALIDATED = 2;
@@ -26,6 +26,6 @@ class Box extends Model
 
     public function user()
     {
-        return $this->belongsTo('gift\api\models\User');
+        return $this->belongsTo(User::class);//'gift\app\models\User');
     }
 }

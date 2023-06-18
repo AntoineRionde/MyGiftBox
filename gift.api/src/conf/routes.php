@@ -1,19 +1,17 @@
 <?php
 declare(strict_types=1);
 
+use gift\api\actions\GetApiBoxAction;
+use gift\api\actions\GetApiCategoriesAction;
+use gift\api\actions\GetApiPrestationByCategorieAction;
+use gift\api\actions\GetApiPrestationsAction;
+
 use Slim\App;
-use gift\api\actions\getApiBoxActions;
-use gift\api\actions\getApiPrestationsActions;
-use gift\api\actions\getApiCategoriesAction;
-use gift\api\actions\getApiPrestationByCategorieAction;
+
 return function (App $app) {
 
-    $app->get('/api/prestations', GetApiPrestationsActions::class)->setName('prestations');
-
-    $app->get('/api/categories', GetApiCategoriesAction::class)->setName('categories');
-
-    $app->get('/api/categories/{id}/prestation', GetApiPrestationByCategorieAction::class)->setName('prestationsByCategorie');
-
-    $app->get('/api/coffrets/{id}', GetApiBoxActions::class)->setName('boxById');
-
+    $app->get('/api/categories', GetApiCategoriesAction::class)->setName('apiCategories');
+    $app->get('/api/prestations', GetApiPrestationsAction::class)->setName('apiPrestations');
+    $app->get('/api/prestations/{cat_id}', GetApiPrestationByCategorieAction::class)->setName('apiPrestationsByCategorieId');
+    $app->get('/api/box/{box_id}', GetApiBoxAction::class)->setName('apiBoxById');
 };

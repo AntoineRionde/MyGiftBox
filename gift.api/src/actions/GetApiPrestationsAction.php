@@ -6,7 +6,7 @@ use gift\api\services\prestations\PrestationsServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class getApiPrestationsActions extends AbstractAction
+class GetApiPrestationsAction extends AbstractAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {

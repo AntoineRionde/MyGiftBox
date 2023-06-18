@@ -6,11 +6,11 @@ use gift\api\services\box\BoxService;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class getApiBoxActions extends AbstractAction
+class GetApiBoxAction extends AbstractAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $id = $args['id'];
+        $id = (string)$args['box_id'];
         $boxService = new BoxService();
         $box = $boxService->getBoxById($id);
         $response->getBody()->write(json_encode($box));
