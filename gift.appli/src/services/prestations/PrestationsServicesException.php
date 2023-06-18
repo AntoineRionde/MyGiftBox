@@ -5,9 +5,8 @@ use Exception;
 
 class PrestationsServicesException extends Exception
 {
-    public function __construct($message = "", $code = 0, \Throwable $previous = null)
+    public function __construct(string $message = "invalidData", int $code = 0, Throwable $previous = null)
     {
-        $message = "PrestationsServicesException : " . $message;
         parent::__construct($message, $code, $previous);
     }
 }
