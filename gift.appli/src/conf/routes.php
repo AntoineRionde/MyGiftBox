@@ -52,10 +52,9 @@ return function (App $app) {
     $app->get('/box/pay[/]', PayBoxAction::class)->setName('payBoxForm');
     $app->post('/box/pay[/]', PayBoxProcessAction::class)->setName('payBoxPost');
 
-    $app->get('/box/{box_id}', GetBoxByIdAction::class)->setName('box');
-    $app->post('/box/add/{presta_id}', ProcessAddPrestaToBox::class)->setName('boxAddPrestaPostPost');
-
-    $app->post('/box/remove/{presta_id}', DeleteBoxPrestaAction::class)->setName('boxRemovePrestaPostPost');
+    $app->get('/box/{box_token}', GetBoxByIdAction::class)->setName('box');
+    $app->post('/box/add/{presta_id}', ProcessAddPrestaToBox::class)->setName('boxAddPrestaPost');
+    $app->get('/box/remove/{box_token}', DeleteBoxPrestaAction::class)->setName('boxRemovePresta');
 
     $app->get('/boxs[/]', GetBoxsUserAction::class)->setName('boxsUser');
 
