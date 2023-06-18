@@ -18,7 +18,7 @@
         </div>
         <ul id="prestations_wrapper">
             {% for presta in prestations %}
-                <form id="prestation_wrapper" action="{{ url_for('boxAddPrestaPostPost', { 'presta_id': presta['id'] }) }" method="POST">
+                <form id="prestation_wrapper" action="{{ url_for('boxAddPrestaPostPost', { 'presta_id': presta['id'] }) }}" method="POST">
                     <div id="prestation_wrapper_image">
                         <a href="{{ url_for('prestation', { 'id': presta['id'] }) }}">
                             <img src="{{ resources['shared'] }}/{{ presta['img'] }}" alt="{{ presta['img'] }}"

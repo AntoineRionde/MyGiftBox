@@ -2,6 +2,7 @@
 
 namespace gift\app\services\prestations;
 use Exception;
+use Throwable;
 
 class PrestationsServicesException extends Exception
 {
