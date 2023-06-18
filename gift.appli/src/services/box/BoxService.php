@@ -5,6 +5,7 @@ use gift\app\models\Prestation;
 use gift\app\services\utils\CsrfService;
 use gift\app\services\utils\Eloquent;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use PHPUnit\Exception;
 use Ramsey\Uuid\Uuid;
 
 class BoxService
@@ -79,6 +80,25 @@ class BoxService
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * @param string $box_id
+     * @return void
+     * payement d'une box
+     * @throws BoxServiceNotFoundException
+     */
+    public function payBox()
+    {
+        try {
+            $box = Box::findOrFail($this);
+            $statut = Box::PAYED;
+            $box->statut = $statut;
+            $box->save();
+            $_SESSION['box_id'] = $box->id;
+        } catch (Exception $e) {
+            throw new BoxServiceNotFoundException("error : box not exist");
         }
     }
 }

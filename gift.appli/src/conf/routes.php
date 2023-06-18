@@ -9,6 +9,7 @@ use gift\app\actions\CreateCategorieAction;
 use gift\api\actions\getApiCategoriesAction;
 use gift\api\actions\getApiPrestationsActions;
 use gift\app\actions\GetBoxByIdAction;
+use gift\app\actions\GetBoxsUserAction;
 use gift\app\actions\GetCategorieByIdAction;
 use gift\app\actions\GetCategoriesAction;
 use gift\app\actions\GetHomeAction;
@@ -55,6 +56,8 @@ return function (App $app) {
     $app->get('/box/{box_id}', GetBoxByIdAction::class)->setName('box');
 
     $app->get('/box/add/{presta_id}', AddPrestaToBoxAction::class)->setName('boxAddPresta');
+
+    $app->get('/boxs', GetBoxsUserAction::class)->setName('boxsUser');
 
     $app->get('/register', RegisterAction::class)->setName("register");
     $app->post('/register', ProcessRegisterAction::class)->setName("registerAction");
