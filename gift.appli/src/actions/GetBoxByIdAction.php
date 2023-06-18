@@ -2,10 +2,8 @@
 
 namespace gift\app\actions;
 
-use gift\app\services\box\BoxService;
-use gift\app\services\box\BoxServiceInvalidDataException;
-use gift\app\services\box\BoxServiceNotFoundException;
 use Exception;
+use gift\app\services\box\BoxService;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -16,29 +14,32 @@ class GetBoxByIdAction extends AbstractAction
     public function __construct()
     {
         if (session_status() === PHP_SESSION_NONE)
-        session_start();
+            session_start();
     }
+
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $routeContext = RouteContext::fromRequest($request);
         $urlLogin = $routeContext->getRouteParser()->urlFor('login');
         $urlHome = $routeContext->getRouteParser()->urlFor('home');
         if (!isset($_SESSION['user'])) {
-            return  $response->withHeader('Location', $urlLogin)->withStatus(302);
+            return $response->withHeader('Location', $urlLogin)->withStatus(302);
         }
-        if (!isset($args['box_id'])) {
+
+        if (!isset($args['box_token'])) {
             return $response->withHeader('Location', $urlHome)->withStatus(302);
         }
-        $user_id = $_SESSION['user']['token'];
+        $user_id = $_SESSION['user']['id'];
+        $isConnected = true;
 
-        $token = (string) $args['box_token'];
+        $token = (string)$args['box_token'];
         $boxServices = new BoxService();
+        $isOwner = true;
 
         try {
             $boxServices->isOwner($token, $user_id);
         } catch (Exception $e) {
-            $url = $routeContext->getRouteParser()->urlFor('home', [], ['error' => $e->getMessage()]);
-            return $response->withHeader('Location', $url)->withStatus(302);
+            $isOwner = false;
         }
 
         $prestations = $boxServices->getPrestationsByBoxToken($token);
@@ -47,9 +48,9 @@ class GetBoxByIdAction extends AbstractAction
         $css_dir = $basePath . "/styles";
         $img_dir = $basePath . "/img";
         $shared_dir = $basePath . "/shared/img";
-        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'user' => $_SESSION['user'] ?? null];
+        $resources = ['css' => $css_dir, 'img' => $img_dir, 'shared' => $shared_dir, 'isConnected' => $isConnected];
         $view = Twig::fromRequest($request);
-        $view->render($response, 'box.twig', ['prestations' => $prestations, 'box_id' => $token, 'resources' => $resources]);
+        $view->render($response, 'box.twig', ['prestations' => $prestations, 'token' => $token, 'isOwner' => $isOwner, 'resources' => $resources]);
         return $response;
     }
 }
