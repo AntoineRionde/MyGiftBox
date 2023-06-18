@@ -5,6 +5,7 @@ namespace gift\app\actions;
 use gift\app\services\box\BoxService;
 use gift\app\services\box\BoxServiceInvalidDataException;
 use gift\app\services\box\BoxServiceNotFoundException;
+use Exception;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -22,7 +23,6 @@ class GetBoxByIdAction extends AbstractAction
         $routeContext = RouteContext::fromRequest($request);
         $urlLogin = $routeContext->getRouteParser()->urlFor('login');
         $urlHome = $routeContext->getRouteParser()->urlFor('home');
-        $urlHomeNotOwner = $routeContext->getRouteParser()->urlFor('home', [], ['error' => 'notOwner']);
         if (!isset($_SESSION['user'])) {
             return  $response->withHeader('Location', $urlLogin)->withStatus(302);
         }
@@ -36,8 +36,9 @@ class GetBoxByIdAction extends AbstractAction
 
         try {
             $boxServices->isOwner($id, $user_id);
-        } catch (BoxServiceInvalidDataException $e) {
-            return $response->withHeader('Location', $urlHomeNotOwner)->withStatus(302);
+        } catch (Exception $e) {
+            $url = $routeContext->getRouteParser()->urlFor('home', [], ['error' => $e->getMessage()]);
+            return $response->withHeader('Location', $url)->withStatus(302);
         }
 
         $prestations = $boxServices->getPrestationsByBoxId($id);
