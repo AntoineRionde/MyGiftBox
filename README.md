@@ -110,4 +110,3 @@ docker-compose stop
 * [Bonus] : CSS
   * Etat : fonctionnel
   * réalisé par ARNAUD Elian
-
